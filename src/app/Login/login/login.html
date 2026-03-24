@@ -1,0 +1,117 @@
+<div class="grid-bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="shell">
+
+  <!-- ══════════ LEFT PANEL ══════════ -->
+  <div class="left-panel">
+    <div class="brand">
+      <div class="brand-icon">⚙</div>
+      <div>
+        <div class="brand-name">FORGE</div>
+        <div class="brand-sub">Industrial Office Automation</div>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>All systems operational</span>
+      </div>
+
+      <h1 class="hero-title">
+        Automate<br/>
+        your <em>entire</em><br/>
+        <span class="accent-word">workflow.</span>
+      </h1>
+
+      <p class="hero-desc">
+        FORGE connects your correspondence, org structure, document registry, and approval chains into one unified industrial-grade platform.
+      </p>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-ic" style="background:rgba(59,130,246,.12);">✉</div>
+          <div class="feature-text"><b>Smart Correspondence</b> — inbound, outbound &amp; internal with full audit trail</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-ic" style="background:rgba(16,185,129,.12);">🌳</div>
+          <div class="feature-text"><b>Org Chart &amp; Positions</b> — recursive department tree with multi-role support</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-ic" style="background:rgba(6,182,212,.12);">📒</div>
+          <div class="feature-text"><b>Indicator Book</b> — atomic serial numbering per fiscal year, zero duplicates</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-ic" style="background:rgba(139,92,246,.12);">⚙</div>
+          <div class="feature-text"><b>Workflow Engine</b> — multi-step approval chains with digital signatures</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="left-bottom">
+      <div class="version-badge">v4.1.0 · build 2026.03</div>
+      <div class="status-line">
+        <div class="status-dot"></div>
+        <span>All services healthy</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ RIGHT PANEL ══════════ -->
+  <div class="right-panel">
+    <div class="auth-card">
+
+     
+
+      <!-- ══ LOGIN PAGE ══ -->
+      <div id="page-login">
+
+        <!-- Default login form -->
+        <div id="login-form-view">
+          <div class="auth-header">
+            <div class="auth-title">Welcome back</div>
+            <div class="auth-sub">Sign in to your FORGE account to continue.</div>
+          </div>
+
+          <!-- Username -->
+          <div class="form-group">
+            <form
+             (ngSubmit)="handleSubmit()">
+            <label class="form-label">Email</label>
+            <div class="input-wrap">
+              <span class="input-icon">👤</span>
+              <input name="Email" type="email" class="form-input" id="login-user" placeholder="Email" name="email" [(ngModel)]="Login.email"/>
+            </div>
+            <div class="field-hint" id="login-user-hint"></div>
+          
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label">
+              Password
+              <a href="#" onclick="showForgot();return false;">Forgot password?</a>
+            </label>
+            <div class="input-wrap">
+              <span class="input-icon">🔐</span>
+              <input type="password" class="form-input" id="login-pass" placeholder="Your password" name="password" [(ngModel)]="Login.password"/>
+              <button class="eye-btn" onclick="toggleEye('login-pass',this)">👁</button>
+            </div>
+            <div class="field-hint" id="login-pass-hint"></div>
+          </div>
+
+          <!-- Remember me -->
+          <div class="checkbox-row">
+            <div class="custom-check" id="remember-check" onclick="this.classList.toggle('checked')"></div>
+            <div class="check-label">Keep me signed in for 30 days</div>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="submit-btn" id="login-btn">
+            <span class="btn-text">Sign In</span>
+            <span class="btn-spinner"></span>
+          </button>
+          </form>
+      </div>
