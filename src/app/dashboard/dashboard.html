@@ -1,0 +1,28 @@
+ <!-- ════════════════════════════
+       PAGE: DASHBOARD
+  ════════════════════════════ -->
+    <div class="pg-head"><div class="pg-title">Management Dashboard</div></div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">Active Users</div><div class="kpi-val">284</div><div class="kpi-sub">CurrentStatus = Active</div><div class="kpi-ic">👤</div></div>
+      <div class="kpi"><div class="kpi-lbl">Letters Today</div><div class="kpi-val">47</div><div class="kpi-sub">CreatedDate = Today</div><div class="kpi-ic">✉</div></div>
+      <div class="kpi"><div class="kpi-lbl">Pending Review</div><div class="kpi-val">19</div><div class="kpi-sub">Awaiting action</div><div class="kpi-ic">⏳</div></div>
+      <div class="kpi"><div class="kpi-lbl">Last Indicator No.</div><div class="kpi-val">4021</div><div class="kpi-sub">LetterNo · FY 2026</div><div class="kpi-ic">📒</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="card">
+        <div class="card-head"><div class="card-title">Letter Distribution by Type</div></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
+          <div><div class="flex-b" style="margin-bottom:5px;"><span class="badge type-in">Inbound</span><span class="text-sm text-muted">45% · 452 letters</span></div><div style="height:7px;background:var(--surface2);border-radius:4px;overflow:hidden;"><div style="width:45%;height:100%;background:var(--green);border-radius:4px;"></div></div></div>
+          <div><div class="flex-b" style="margin-bottom:5px;"><span class="badge type-out">Outbound</span><span class="text-sm text-muted">32% · 321 letters</span></div><div style="height:7px;background:var(--surface2);border-radius:4px;overflow:hidden;"><div style="width:32%;height:100%;background:var(--accent);border-radius:4px;"></div></div></div>
+          <div><div class="flex-b" style="margin-bottom:5px;"><span class="badge type-internal">Internal</span><span class="text-sm text-muted">23% · 231 letters</span></div><div style="height:7px;background:var(--surface2);border-radius:4px;overflow:hidden;"><div style="width:23%;height:100%;background:var(--purple);border-radius:4px;"></div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Distribution by Priority</div></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
+          <div><div class="flex-b" style="margin-bottom:5px;"><span class="badge pri-normal">Normal</span><span class="text-sm text-muted">60% · 602</span></div><div style="height:7px;background:var(--surface2);border-radius:4px;overflow:hidden;"><div style="width:60%;height:100%;background:var(--green);border-radius:4px;"></div></div></div>
+          <div><div class="flex-b" style="margin-bottom:5px;"><span class="badge pri-urgent">Urgent</span><span class="text-sm text-muted">30% · 301</span></div><div style="height:7px;background:var(--surface2);border-radius:4px;overflow:hidden;"><div style="width:30%;height:100%;background:var(--amber);border-radius:4px;"></div></div></div>
+          <div><div class="flex-b" style="margin-bottom:5px;"><span class="badge pri-flash">Critical</span><span class="text-sm text-muted">10% · 101</span></div><div style="height:7px;background:var(--surface2);border-radius:4px;overflow:hidden;"><div style="width:10%;height:100%;background:var(--red);border-radius:4px;"></div></div></div>
+        </div>
+      </div>
+    </div>

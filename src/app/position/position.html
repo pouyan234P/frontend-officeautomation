@@ -1,0 +1,115 @@
+<!-- ════════════════════════════
+       PAGE: POSITIONS
+  ════════════════════════════ -->
+    <div class="pg-head" style="padding-top: 20px;">
+      <div>
+        <div class="pg-title">Roles &amp; Positions</div>
+        <div class="pg-sub">Entity: Position — Fields: PositionID, Title, DeptID, UserID</div>
+      </div>
+      <button class="btn btn-primary" (click)="openModal()">+ New Position</button>
+    </div>
+   <app-newposition
+  title="🎖 New Position — Entity: Position"
+  [isOpen]="isModalOpen"
+  (closed)="closeModal()">
+
+  <!-- Entity fields hint -->
+  <div style="background:var(--purple-dim);border:1px solid rgba(139,92,246,.25);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--purple);">
+    📋 Entity fields: <b>PositionID (Auto)</b> · Title · DeptID · UserID (nullable)
+  </div>
+
+  <!-- Title -->
+  <div class="form-grp">
+    <label class="form-lbl">Title (Job Title) <span class="req">*</span></label>
+    <input type="text" class="form-inp" placeholder="e.g. Senior Financial Manager"/>
+  </div>
+
+  <!-- DeptID -->
+  <div class="form-grp">
+    <label class="form-lbl">DeptID (Department) <span class="req">*</span></label>
+    <select class="form-sel">
+      <option>Select department…</option>
+      <option>D-001 · Apex Corp.</option>
+      <option>D-002 · Administrative</option>
+      <option>D-005 · HR</option>
+    </select>
+  </div>
+
+  <!-- UserID -->
+  <div class="form-grp">
+    <label class="form-lbl">UserID (Current Holder)</label>
+    <select class="form-sel">
+      <option>— Vacant (NULL) — no assignee —</option>
+      <option>U-001 · j.mitchell</option>
+      <option>U-002 · s.chen</option>
+      <option>U-004 · r.kim</option>
+    </select>
+    <div class="form-hint">💡 Leave blank for a vacant position · One user can hold multiple positions</div>
+  </div>
+
+  <!-- Footer -->
+  <div class="modal-footer">
+    <button class="btn btn-primary">💾 Save Position</button>
+    <button class="btn btn-ghost" (click)="closeModal()">Cancel</button>
+  </div>
+
+</app-newposition>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-head"><div class="card-title">🗂 Entity Fields — Position</div></div>
+      <div class="card-body" style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span class="field-tag pk">🔑 PositionID — Primary Key</span>
+        <span class="field-tag">🏷 Title — Job Title</span>
+        <span class="field-tag fk">🔗 DeptID — FK → Department</span>
+        <span class="field-tag fk">🔗 UserID — FK → User (nullable = vacant position)</span>
+      </div>
+    </div>
+    <div style="background:var(--amber-dim);border:1px solid rgba(245,158,11,.25);border-radius:var(--r-sm);padding:11px 15px;margin-bottom:16px;font-size:12.5px;color:var(--amber);">
+      💡 <b>Design Note:</b> Because <code style="background:rgba(245,158,11,.15);padding:1px 5px;border-radius:4px;font-family:var(--mono);">UserID</code> lives on the <b>Position</b> entity (not User), one user can hold <b>multiple positions simultaneously</b>, and a position can be <b>vacant</b> (UserID = NULL).
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">All Positions</div></div>
+      <div class="tbl">
+        <table>
+          <thead>
+            <tr>
+              <th>🔑 PositionID</th><th>🏷 Title</th><th>🔗 DeptID</th>
+              <th>🔗 UserID — Current Holder</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="mono fw7" style="color:var(--accent);">P-001</span></td>
+              <td class="fw7">Chief Executive Officer</td>
+              <td><span class="badge b-blue">D-001 · Corp.</span></td>
+              <td><div class="flex gap-8"><div class="av av-b">JM</div><span class="mono" style="color:var(--teal);">U-001</span> <span class="text-sm">j.mitchell</span></div></td>
+              <td><span class="badge b-green">● Filled</span></td>
+              <td><button class="btn btn-ghost btn-sm">Edit</button></td>
+            </tr>
+            <tr>
+              <td><span class="mono fw7" style="color:var(--accent);">P-002</span></td>
+              <td class="fw7">Executive Assistant</td>
+              <td><span class="badge b-blue">D-001 · Corp.</span></td>
+              <td><span class="badge b-amber">NULL — Vacant</span></td>
+              <td><span class="badge b-amber">◌ Vacant</span></td>
+              <td><button class="btn btn-ghost btn-sm">Assign User</button></td>
+            </tr>
+            <tr>
+              <td><span class="mono fw7" style="color:var(--accent);">P-003</span></td>
+              <td class="fw7">HR Manager</td>
+              <td><span class="badge b-green">D-005 · HR</span></td>
+              <td><div class="flex gap-8"><div class="av av-g">SC</div><span class="mono" style="color:var(--teal);">U-002</span> <span class="text-sm">s.chen</span></div></td>
+              <td><span class="badge b-green">● Filled</span></td>
+              <td><button class="btn btn-ghost btn-sm">Edit</button></td>
+            </tr>
+            <tr>
+              <td><span class="mono fw7" style="color:var(--accent);">P-004</span></td>
+              <td class="fw7">IT Analyst</td>
+              <td><span class="badge b-teal">D-005 · HR</span></td>
+              <td><div class="flex gap-8"><div class="av av-g">SC</div><span class="mono" style="color:var(--teal);">U-002</span> <span class="text-sm text-muted">s.chen (multi-role!)</span></div></td>
+              <td><span class="badge b-purple">● Multi-role</span></td>
+              <td><button class="btn btn-ghost btn-sm">Edit</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>

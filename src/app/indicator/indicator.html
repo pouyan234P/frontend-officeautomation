@@ -1,0 +1,98 @@
+<!-- ════════════════════════════
+       PAGE: INDICATOR BOOK
+  ════════════════════════════ -->
+    <div class="pg-head" style="padding-top: 20px;">
+      <div>
+        <div class="pg-title">Indicator Book</div>
+        <div class="pg-sub">Entity: IndicatorBook — Serial numbering for letters, preventing duplicates across fiscal years</div>
+      </div>
+      <button class="btn btn-primary">+ New Year Book</button>
+    </div>
+
+    <div style="background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px solid var(--border2);border-radius:var(--r);padding:20px;margin-bottom:16px;">
+      <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:8px;">📒 Why is the IndicatorBook critical?</div>
+      <div style="font-size:12.5px;line-height:1.9;color:var(--text2);">
+        Every letter must carry a <b style="color:var(--accent);">globally unique reference number</b>. This number is typically a compound of
+        <b style="color:var(--green);">fiscal year + sequential serial</b>. The IndicatorBook guarantees no two letters within a year share the same number.
+        At the start of each new year the sequence resets to 1 — prior years are sealed and archived.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="card">
+        <div class="card-head"><div class="card-title">📒 Book — FY 2026</div><div class="card-actions"><span class="badge b-green">● Active</span></div></div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
+            <div style="text-align:center;padding:13px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border);">
+              <div style="font-size:20px;font-weight:900;color:var(--accent);font-family:var(--mono);">2026</div>
+              <div class="text-sm text-muted" style="margin-top:3px;">Fiscal Year</div>
+            </div>
+            <div style="text-align:center;padding:13px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border);">
+              <div style="font-size:20px;font-weight:900;color:var(--green);font-family:var(--mono);">4021</div>
+              <div class="text-sm text-muted" style="margin-top:3px;">Last Number</div>
+            </div>
+            <div style="text-align:center;padding:13px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border);">
+              <div style="font-size:20px;font-weight:900;color:var(--purple);font-family:var(--mono);">4022</div>
+              <div class="text-sm text-muted" style="margin-top:3px;">Next Available</div>
+            </div>
+          </div>
+          <div class="tbl">
+            <table>
+              <thead><tr><th>LetterNo</th><th>LetterID</th><th>Date</th><th>Type</th></tr></thead>
+              <tbody>
+                <tr><td class="ind-serial" style="font-size:13px;">2026/4021</td><td class="mono" style="color:var(--teal);">L-4021</td><td class="text-sm text-muted mono">Mar 20</td><td><span class="badge type-in">Inbound</span></td></tr>
+                <tr><td class="ind-serial" style="font-size:13px;">2026/4020</td><td class="mono" style="color:var(--teal);">L-4020</td><td class="text-sm text-muted mono">Mar 19</td><td><span class="badge type-internal">Internal</span></td></tr>
+                <tr><td class="ind-serial" style="font-size:13px;">2026/4018</td><td class="mono" style="color:var(--teal);">L-4018</td><td class="text-sm text-muted mono">Mar 18</td><td><span class="badge type-out">Outbound</span></td></tr>
+                <tr><td class="ind-serial" style="font-size:13px;">2026/4015</td><td class="mono" style="color:var(--teal);">L-4015</td><td class="text-sm text-muted mono">Mar 17</td><td><span class="badge type-in">Inbound</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-title">📦 Book — FY 2025 (Archived)</div><div class="card-actions"><span class="badge b-gray">● Closed</span></div></div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
+            <div style="text-align:center;padding:13px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border);">
+              <div style="font-size:20px;font-weight:900;color:var(--text2);font-family:var(--mono);">2025</div>
+              <div class="text-sm text-muted" style="margin-top:3px;">Fiscal Year</div>
+            </div>
+            <div style="text-align:center;padding:13px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border);">
+              <div style="font-size:20px;font-weight:900;color:var(--text2);font-family:var(--mono);">8,241</div>
+              <div class="text-sm text-muted" style="margin-top:3px;">Final Number</div>
+            </div>
+            <div style="text-align:center;padding:13px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border);">
+              <div style="font-size:20px;font-weight:900;color:var(--text2);font-family:var(--mono);">8,241</div>
+              <div class="text-sm text-muted" style="margin-top:3px;">Total Letters</div>
+            </div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);padding:18px;text-align:center;color:var(--text2);">
+            <div style="font-size:26px;margin-bottom:8px;">🔒</div>
+            <div style="font-size:12.5px;font-weight:700;color:var(--text);">This book is sealed and archived</div>
+            <div class="text-sm text-muted" style="margin-top:4px;font-family:var(--mono);">2025/0001 → 2025/8241</div>
+            <button class="btn btn-ghost btn-sm" style="margin-top:12px;">👁 Browse Archive</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-16">
+      <div class="card-head"><div class="card-title">⚙ Numbering Business Rules</div></div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+          <div style="padding:14px;background:var(--green-dim);border-radius:var(--r-sm);border:1px solid rgba(16,185,129,.2);">
+            <div style="font-size:12.5px;font-weight:700;color:var(--green);margin-bottom:6px;">✅ Allowed</div>
+            <div class="text-sm" style="color:var(--text2);">Each year resets from 1. <code style="font-family:var(--mono);">2025/0001</code> and <code style="font-family:var(--mono);">2026/0001</code> can coexist — they are distinct composite keys.</div>
+          </div>
+          <div style="padding:14px;background:var(--red-dim);border-radius:var(--r-sm);border:1px solid rgba(239,68,68,.2);">
+            <div style="font-size:12.5px;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Forbidden</div>
+            <div class="text-sm" style="color:var(--text2);">Two letters with the same number in the same year. E.g., two letters bearing <code style="font-family:var(--mono);">2026/4021</code> is a constraint violation.</div>
+          </div>
+          <div style="padding:14px;background:var(--amber-dim);border-radius:var(--r-sm);border:1px solid rgba(245,158,11,.2);">
+            <div style="font-size:12.5px;font-weight:700;color:var(--amber);margin-bottom:6px;">⚠ Implementation Note</div>
+            <div class="text-sm" style="color:var(--text2);">The sequence increment must be <b>atomic</b>. In concurrent environments use a DB Sequence or row-level lock to prevent race conditions.</div>
+          </div>
+        </div>
+      </div>
+    </div>

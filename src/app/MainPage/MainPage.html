@@ -1,0 +1,64 @@
+<div class="shell">
+  <!-- ══════════ LEFT: SIDEBAR ══════════ -->
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <div class="sb-logo">⚙</div>
+      <div>
+        <div class="sb-name">FORGE</div>
+        <div class="sb-tag">Industrial Office Automation</div>
+      </div>
+    </div>
+
+    <div class="sb-user">
+      <div class="sb-av">JM</div>
+      <div>
+        <div class="sb-uname">James Mitchell</div>
+        <div class="sb-urole">System Admin · UserID: U-001</div>
+      </div>
+      <div class="sb-online"></div>
+    </div>
+
+    <nav class="sb-nav">
+      <div class="sb-sec">Module 1 — Org &amp; Auth</div>
+      <a class="sb-item" routerLink="/mainpage/users" routerLinkActive="active">
+        <span class="sb-ic">👤</span> Users
+      </a>
+      <a class="sb-item" routerLink="/mainpage/orgchart" routerLinkActive="active">
+        <span class="sb-ic">🏢</span> Org Chart (Departments)
+      </a>
+      <a class="sb-item" routerLink="/mainpage/positions" routerLinkActive="active">
+        <span class="sb-ic">🎖</span> Roles &amp; Positions
+      </a>
+
+      <div class="sb-sec">Module 2 — Correspondence</div>
+      <a class="sb-item" routerLink="/mainpage/letters" routerLinkActive="active">
+        <span class="sb-ic">✉</span> Letters <span class="sb-badge">9</span>
+      </a>
+      <a class="sb-item" routerLink="/mainpage/newletter" routerLinkActive="active">
+        <span class="sb-ic">✏</span> Compose Letter
+      </a>
+      <a class="sb-item" routerLink="/mainpage/attachments" routerLinkActive="active">
+        <span class="sb-ic">📎</span> Attachments
+      </a>
+      <a class="sb-item" routerLink="/mainpage/indicator" routerLinkActive="active">
+        <span class="sb-ic">📒</span> Indicator Book <span class="sb-badge b">3</span>
+      </a>
+
+      <div class="sb-sec">Overview</div>
+      <a class="sb-item" routerLink="/mainpage/dashboard" routerLinkActive="active">
+        <span class="sb-ic">📊</span> Dashboard
+      </a>
+    </nav>
+
+    <div class="sb-footer">
+      <div class="sb-item" style="color:var(--text2);">
+        <span class="sb-ic">⏻</span> Sign Out
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══════════ RIGHT: CONTENT PANEL ══════════ -->
+  <main class="content-panel">
+    <router-outlet />
+  </main>
+</div>
