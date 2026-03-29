@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { authservice } from '../../Services/authservice';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { authservice } from '../../Services/authservice';
 })
 export class Login implements OnInit {
   Login:any={};
-  constructor(private auth:authservice){}
+  constructor(private auth:authservice,private router:Router){}
   ngOnInit() {
     
   }
@@ -23,6 +24,10 @@ export class Login implements OnInit {
       },
       error: (error) => {
         console.error('Error from component:', error);
+      },
+      complete: () =>
+      {
+        this.router.navigate(['/mainpage']);
       }
     });
   }

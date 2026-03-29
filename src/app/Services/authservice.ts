@@ -26,4 +26,11 @@ export class authservice {
     })
   )
   }
+  register(user:any)
+  {
+    console.log(user);
+  let headers = new HttpHeaders();
+  headers.append('Content-type', 'application/json');
+ return this.httpclient.post(this.baseurl + 'register' ,user, {headers:headers})
+  }
 }

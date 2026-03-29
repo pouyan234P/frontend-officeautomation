@@ -18,19 +18,20 @@
   <div style="background:var(--teal-dim);border:1px solid rgba(6,182,212,.25);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--teal);">
     📋 Entity fields: <b>DeptID (Auto)</b> · Name · ParentID
   </div>
-
+  <form (ngSubmit)="onSave()">
   <div class="form-grp">
     <label class="form-lbl">Name <span class="req">*</span></label>
-    <input type="text" class="form-inp" placeholder="e.g. Accounting Department"/>
+    <input type="text" class="form-inp" placeholder="e.g. Accounting Department" name="name" [(ngModel)]="newdept.name"/>
   </div>
 
   <div class="form-grp">
     <label class="form-lbl">ParentID (parent department)</label>
-    <select class="form-sel">
-      <option>— Root node (ParentID = NULL) —</option>
-      <option>D-001 · Apex Industrial Corp.</option>
-      <option>D-002 · Administrative Division</option>
-      <option>D-003 · Finance Division</option>
+    <select class="form-sel" name="parentID" [(ngModel)]="newdept.parentID">
+      <option [ngValue]="0">— Root node (ParentID = NULL) —</option>
+      
+      @for (dept of mydept; track dept.id) {
+        <option [ngValue]="dept.id">D-{{dept.id}} · {{dept.name}}</option>
+      }
     </select>
     <div class="form-hint">💡 Leave empty to create a new root-level department</div>
   </div>
@@ -39,75 +40,30 @@
     <button class="btn btn-primary">💾 Save Department</button>
     <button class="btn btn-ghost" (click)="closeModal()">Cancel</button>
   </div>
-
+  </form>
 </app-new-dept>
     <div class="card" style="margin-bottom:16px;">
-      <div class="card-head"><div class="card-title">🗂 Entity Fields — Department</div></div>
-      <div class="card-body" style="display:flex;flex-wrap:wrap;gap:8px;">
-        <span class="field-tag pk">🔑 DeptID — Primary Key</span>
-        <span class="field-tag">🏷 Name — Department Name</span>
-        <span class="field-tag fk">🔗 ParentID — Self-referencing FK (which dept is the parent?)</span>
+  <div class="card-head"><div class="card-title">🗂 Entity Fields — Department</div></div>
+  <div class="card-body" style="display:flex;flex-wrap:wrap;gap:8px;">
+    <span class="field-tag pk">🔑 DeptID — Primary Key</span>
+    <span class="field-tag">🏷 Name — Department Name</span>
+    <span class="field-tag fk">🔗 ParentID — Self-referencing FK (which dept is the parent?)</span>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 320px;gap:16px;">
+  
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title">🌳 Department Tree</div>
+      <div class="card-sub">· ParentID = 0 indicates root node</div>
+    </div>
+    <div class="card-body">
+      <div class="org-tree">
+        <ng-container *ngTemplateOutlet="recursiveTree; context: { $implicit: departmentTree }"></ng-container>
       </div>
     </div>
-
-    <div style="display:grid;grid-template-columns:1fr 320px;gap:16px;">
-      <div class="card">
-        <div class="card-head"><div class="card-title">🌳 Department Tree</div><div class="card-sub">· ParentID = NULL indicates root node</div></div>
-        <div class="card-body">
-          <div class="org-tree">
-            <div class="org-node">
-              <div class="org-node-inner selected">
-                <div class="org-icon" style="background:var(--accent-dim);color:var(--accent);">🏭</div>
-                <div>
-                  <div class="org-name">Apex Industrial Corp.</div>
-                  <div class="org-id">DeptID: D-001 · ParentID: NULL (root)</div>
-                </div>
-                <span class="badge b-blue" style="margin-left:auto;">5 children</span>
-                <div class="expand-btn">▾</div>
-              </div>
-              <div class="org-children">
-                <div class="org-node">
-                  <div class="org-node-inner">
-                    <div class="org-icon" style="background:var(--accent-dim);color:var(--accent);">💼</div>
-                    <div>
-                      <div class="org-name">Administrative Division</div>
-                      <div class="org-id">DeptID: D-002 · ParentID: D-001</div>
-                    </div>
-                    <span class="badge b-teal" style="margin-left:auto;">3 children</span>
-                    <div class="expand-btn">▾</div>
-                  </div>
-                  <div class="org-children">
-                    <div class="org-node"><div class="org-node-inner">
-                      <div class="org-icon" style="background:var(--green-dim);color:var(--green);">👥</div>
-                      <div><div class="org-name">Human Resources</div><div class="org-id">DeptID: D-005 · ParentID: D-002</div></div>
-                      <div class="expand-btn" style="margin-left:auto;">—</div>
-                    </div></div>
-                    <div class="org-node"><div class="org-node-inner">
-                      <div class="org-icon" style="background:var(--amber-dim);color:var(--amber);">📋</div>
-                      <div><div class="org-name">Central Registry</div><div class="org-id">DeptID: D-006 · ParentID: D-002</div></div>
-                      <div class="expand-btn" style="margin-left:auto;">—</div>
-                    </div></div>
-                  </div>
-                </div>
-                <div class="org-node">
-                  <div class="org-node-inner">
-                    <div class="org-icon" style="background:var(--purple-dim);color:var(--purple);">💰</div>
-                    <div><div class="org-name">Finance Division</div><div class="org-id">DeptID: D-003 · ParentID: D-001</div></div>
-                    <div class="expand-btn" style="margin-left:auto;">▸</div>
-                  </div>
-                </div>
-                <div class="org-node">
-                  <div class="org-node-inner">
-                    <div class="org-icon" style="background:var(--teal-dim);color:var(--teal);">🔧</div>
-                    <div><div class="org-name">Technical Division</div><div class="org-id">DeptID: D-004 · ParentID: D-001</div></div>
-                    <div class="expand-btn" style="margin-left:auto;">▸</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  </div>
 
       <!-- Dept Detail Panel -->
       <div class="card">
@@ -146,3 +102,39 @@
         </div>
       </div>
     </div>
+
+   <ng-template #recursiveTree let-nodes>
+  @for (node of nodes; track node.id) {
+    <div class="org-node">
+      <div class="org-node-inner" 
+           [class.selected]="selectedDept?.id === node.id" 
+           (click)="selectDept(node)">
+           
+        <div class="org-icon" style="background:var(--accent-dim);color:var(--accent);">🏢</div>
+        <div>
+          <div class="org-name">{{ node.name }}</div>
+          <div class="org-id">
+            DeptID: D-00{{ node.id }} · ParentID: {{ node.parentID === 0 ? '0 (root)' : 'D-00' + node.parentID }}
+          </div>
+        </div>
+        
+        @if (node.children?.length) {
+          <span class="badge b-blue" style="margin-left:auto;">{{ node.children.length }} children</span>
+          
+          <div class="expand-btn" (click)="toggleExpand($event, node)" style="cursor: pointer; padding: 0 8px;">
+            {{ node.isExpanded ? '-' : '+' }}
+          </div>
+          
+        } @else {
+          <div class="expand-btn" style="margin-left:auto;">—</div>
+        }
+      </div>
+
+      @if (node.children?.length && node.isExpanded) {
+        <div class="org-children">
+          <ng-container *ngTemplateOutlet="recursiveTree; context: { $implicit: node.children }"></ng-container>
+        </div>
+      }
+    </div>
+  }
+</ng-template>
