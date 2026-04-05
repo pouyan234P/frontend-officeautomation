@@ -18,41 +18,42 @@
     📋 Entity fields: <b>PositionID (Auto)</b> · Title · DeptID · UserID (nullable)
   </div>
 
+  <form (ngSubmit)="onSave()">
   <!-- Title -->
   <div class="form-grp">
     <label class="form-lbl">Title (Job Title) <span class="req">*</span></label>
-    <input type="text" class="form-inp" placeholder="e.g. Senior Financial Manager"/>
+    <input type="text" class="form-inp" placeholder="e.g. Senior Financial Manager" name="Title" [(ngModel)]="newpos.Title"/>
   </div>
 
   <!-- DeptID -->
   <div class="form-grp">
     <label class="form-lbl">DeptID (Department) <span class="req">*</span></label>
-    <select class="form-sel">
-      <option>Select department…</option>
-      <option>D-001 · Apex Corp.</option>
-      <option>D-002 · Administrative</option>
-      <option>D-005 · HR</option>
+    <select class="form-sel" name="departmentId" [(ngModel)]="newpos.departmentId">
+       @for (dept of mydept; track dept.id) {
+        <option [ngValue]="dept.id">D-{{dept.id}} · {{dept.name}}</option>
+      }
     </select>
   </div>
 
   <!-- UserID -->
   <div class="form-grp">
     <label class="form-lbl">UserID (Current Holder)</label>
-    <select class="form-sel">
-      <option>— Vacant (NULL) — no assignee —</option>
-      <option>U-001 · j.mitchell</option>
-      <option>U-002 · s.chen</option>
-      <option>U-004 · r.kim</option>
+    <select class="form-sel" name="userId" [(ngModel)]="newpos.userId">
+      @for (user of myuser; track user.id) {
+        @if (user.title==null) {
+        <option [ngValue]="user.id">U-{{user.id}} - {{user.username}}</option>
+        }
+      }
     </select>
     <div class="form-hint">💡 Leave blank for a vacant position · One user can hold multiple positions</div>
   </div>
 
   <!-- Footer -->
   <div class="modal-footer">
-    <button class="btn btn-primary">💾 Save Position</button>
+    <button type="submit" class="btn btn-primary">💾 Save Position</button>
     <button class="btn btn-ghost" (click)="closeModal()">Cancel</button>
   </div>
-
+</form>
 </app-newposition>
     <div class="card" style="margin-bottom:16px;">
       <div class="card-head"><div class="card-title">🗂 Entity Fields — Position</div></div>
@@ -72,41 +73,36 @@
         <table>
           <thead>
             <tr>
-              <th>🔑 PositionID</th><th>🏷 Title</th><th>🔗 DeptID</th>
-              <th>🔗 UserID — Current Holder</th><th>Status</th><th>Actions</th>
+              <th>🏷 Title</th>
+              <th>🔗 DeptID</th>
+              <th>🔗 UserID — Current Holder</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><span class="mono fw7" style="color:var(--accent);">P-001</span></td>
-              <td class="fw7">Chief Executive Officer</td>
-              <td><span class="badge b-blue">D-001 · Corp.</span></td>
-              <td><div class="flex gap-8"><div class="av av-b">JM</div><span class="mono" style="color:var(--teal);">U-001</span> <span class="text-sm">j.mitchell</span></div></td>
-              <td><span class="badge b-green">● Filled</span></td>
-              <td><button class="btn btn-ghost btn-sm">Edit</button></td>
-            </tr>
-            <tr>
-              <td><span class="mono fw7" style="color:var(--accent);">P-002</span></td>
-              <td class="fw7">Executive Assistant</td>
-              <td><span class="badge b-blue">D-001 · Corp.</span></td>
-              <td><span class="badge b-amber">NULL — Vacant</span></td>
-              <td><span class="badge b-amber">◌ Vacant</span></td>
-              <td><button class="btn btn-ghost btn-sm">Assign User</button></td>
-            </tr>
-            <tr>
-              <td><span class="mono fw7" style="color:var(--accent);">P-003</span></td>
-              <td class="fw7">HR Manager</td>
-              <td><span class="badge b-green">D-005 · HR</span></td>
-              <td><div class="flex gap-8"><div class="av av-g">SC</div><span class="mono" style="color:var(--teal);">U-002</span> <span class="text-sm">s.chen</span></div></td>
-              <td><span class="badge b-green">● Filled</span></td>
-              <td><button class="btn btn-ghost btn-sm">Edit</button></td>
-            </tr>
-            <tr>
-              <td><span class="mono fw7" style="color:var(--accent);">P-004</span></td>
-              <td class="fw7">IT Analyst</td>
-              <td><span class="badge b-teal">D-005 · HR</span></td>
-              <td><div class="flex gap-8"><div class="av av-g">SC</div><span class="mono" style="color:var(--teal);">U-002</span> <span class="text-sm text-muted">s.chen (multi-role!)</span></div></td>
-              <td><span class="badge b-purple">● Multi-role</span></td>
+            <tr *ngFor="let pos of mypos">
+
+              <td class="fw7">
+                {{pos.title}}
+              </td>
+              <td>
+                <span class="badge b-blue">
+                  {{pos.depID.name}}
+                </span>
+              </td>
+              <td>
+                <div class="flex gap-8">
+                  <div class="av av-b">
+                    JM
+                  </div>
+                  <span class="mono" style="color:var(--teal);">
+                    {{pos.userID.id}}
+                  </span>
+                     <span class="text-sm">
+                      {{pos.userID.username}}
+                    </span>
+                  </div>
+                </td>
               <td><button class="btn btn-ghost btn-sm">Edit</button></td>
             </tr>
           </tbody>

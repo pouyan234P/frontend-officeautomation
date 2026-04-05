@@ -9,6 +9,7 @@ import { Composeletter } from './composeletter/composeletter';
 import { Attachment } from './attachment/attachment';
 import { Indicator } from './indicator/indicator';
 import { Dashboard } from './dashboard/dashboard';
+import { loginGuardGuard } from './gaurd/loginGuard-guard';
 export const routes: Routes = [
     { 
         path: '', 
@@ -21,7 +22,8 @@ export const routes: Routes = [
     },
     {
     path: 'mainpage',
-    component: MainPage,        // ← shell with sidebar
+    component: MainPage, 
+    canActivate: [loginGuardGuard],       // ← shell with sidebar
     children: [                 // ← these load inside <router-outlet>
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'users',       component: Userpage },

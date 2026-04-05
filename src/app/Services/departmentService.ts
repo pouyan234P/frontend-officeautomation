@@ -8,7 +8,7 @@ import { GetDepartmentModel } from '../Model/getDepartmentModel';
 })
 export class DepartmentService {
 private http = inject(HttpClient);
-private baseurl = 'http://192.168.1.173:5295/api/department/';
+private baseurl = 'http://localhost:5295/api/department/';
   constructor(private httpclient:HttpClient) { }
 
   getDepartment(): Observable<GetDepartmentModel[]>

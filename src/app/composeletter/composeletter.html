@@ -7,8 +7,8 @@
         <div class="pg-sub">All fields from entity Letter + Attachment + auto-numbering from IndicatorBook</div>
       </div>
       <div class="flex gap-8">
-        <button class="btn btn-ghost">💾 Save Draft</button>
-        <button class="btn btn-primary">📤 Register &amp; Send</button>
+        <button class="btn btn-ghost" >💾 Save Draft</button>
+        <button class="btn btn-primary" (click)="sendreferral()">📤 Register &amp; Send</button>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 270px;gap:16px;">
@@ -20,37 +20,42 @@
             <div class="form-grid-3">
               <div class="form-grp">
                 <label class="form-lbl">Type <span class="req">*</span></label>
-                <select class="form-sel"><option>Internal</option><option>Inbound</option><option>Outbound</option></select>
+                <select class="form-sel" name="type" [(ngModel)]="newletter.type">
+                  <option [value]="0">Domestic</option>
+                  <option [value]="1">imported</option>
+                  <option [value]="2">exported</option>
+                </select>
               </div>
               <div class="form-grp">
-                <label class="form-lbl">Priority <span class="req">*</span></label>
-                <select class="form-sel"><option>Normal</option><option>Urgent</option><option>Critical / Flash</option></select>
+                <label class="form-lbl">
+                  Priority 
+                  <span class="req">*</span>
+                </label>
+                <select class="form-sel" name="priority" [(ngModel)]="newletter.priority">
+                  <option [value]="0">Normal</option>
+                  <option [value]="1">immediate</option>
+                  <option [value]="2">instantaneous</option>
+                </select>
               </div>
               <div class="form-grp">
                 <label class="form-lbl">Confidentiality <span class="req">*</span></label>
-                <select class="form-sel"><option>Normal</option><option>Confidential</option><option>Secret</option></select>
+                <select class="form-sel" name="confidentiality" [(ngModel)]="newletter.confidential"> 
+                  <option [value]="0">Normal</option>
+                  <option [value]="1">confidential</option>
+                  <option [value]="2">secret</option>
+                </select>
               </div>
             </div>
             <div class="form-grp">
               <label class="form-lbl">Subject <span class="req">*</span></label>
-              <input type="text" class="form-inp" placeholder="Letter subject…"/>
+              <input type="text" class="form-inp" placeholder="Letter subject…" name="subject" [(ngModel)]="newletter.subject"/>
             </div>
             <div class="form-grp">
               <label class="form-lbl">Abstract</label>
-              <textarea class="form-textarea" rows="2" placeholder="Brief summary of the letter content…"></textarea>
+              <textarea class="form-textarea" rows="2" placeholder="Brief summary of the letter content…" name="abstract" [(ngModel)]="newletter.abstract"></textarea>
               <div class="form-hint">💡 Shown as the preview snippet in the letters list</div>
             </div>
-            <div class="form-grid">
-              <div class="form-grp">
-                <label class="form-lbl">CreatedDate</label>
-                <input type="text" class="form-inp" value="Mar 20, 2026" readonly style="background:var(--bg);color:var(--text2);"/>
-                <div class="form-hint">⚙ Auto-set by system</div>
-              </div>
-              <div class="form-grp">
-                <label class="form-lbl">SentDate</label>
-                <input type="text" class="form-inp" placeholder="Set upon sending" readonly style="background:var(--bg);color:var(--text2);"/>
-              </div>
-            </div>
+            
           </div>
         </div>
 
@@ -70,7 +75,7 @@
                 <button class="btn btn-ghost btn-sm">Link</button>
                 <button class="btn btn-ghost btn-sm">Table</button>
               </div>
-              <textarea class="form-textarea" rows="10" style="border:none;border-radius:0;min-height:200px;background:var(--bg);" placeholder="Write the letter body here…&#10;&#10;Content is stored as HTML in the BodyHTML field."></textarea>
+              <textarea class="form-textarea" rows="10" style="border:none;border-radius:0;min-height:200px;background:var(--bg);" placeholder="Write the letter body here…&#10;&#10;Content is stored as HTML in the BodyHTML field." name="bodyHTML" [(ngModel)]="newletter.bodyHTML"></textarea>
             </div>
           </div>
         </div>
@@ -102,38 +107,36 @@
 
       <!-- Right sidebar -->
       <div style="display:flex;flex-direction:column;gap:14px;">
-        <!-- Indicator Book -->
-        <div class="card" style="border-color:rgba(59,130,246,.35);">
-          <div class="card-head" style="background:var(--accent-dim);"><div class="card-title" style="color:var(--accent);">📒 Auto-Numbering</div></div>
-          <div class="card-body">
-            <div class="text-sm text-muted" style="margin-bottom:6px;">Next LetterNo from IndicatorBook:</div>
-            <div class="ind-serial">2026 / 4022</div>
-            <div class="text-sm text-muted" style="margin-top:6px;">Year: <span class="ind-year-badge">2026</span> · Sequence: 4022</div>
-            <div class="divider"></div>
-            <div class="text-sm text-muted" style="margin-bottom:4px;">Or enter manually:</div>
-            <input type="text" class="form-inp" value="2026/4022" style="font-family:var(--mono);font-weight:700;font-size:14px;"/>
-            <div class="form-hint">⚠ Duplicate numbers within the same year are not permitted</div>
-          </div>
-        </div>
 
         <!-- Routing -->
         <div class="card">
           <div class="card-head"><div class="card-title">📨 Routing</div></div>
           <div class="card-body">
             <div class="form-grp">
-              <label class="form-lbl">Primary Recipient (Position) <span class="req">*</span></label>
-              <select class="form-sel"><option>Select position…</option><option>P-001 · CEO</option><option>P-003 · HR Manager</option><option>P-004 · IT Analyst</option></select>
+              <label class="form-lbl">First select your departement</label>
+              <select class="form-sel" style="margin-bottom: 20px;" (change)="onDepartmentChange($event)">
+                
+                @for (dept of getdept; track dept.id) {
+                  <option [value]="dept.id">D-{{dept.id}} · {{dept.name}}</option>
+              }
+              </select>
+              <label class="form-lbl">
+                now select (Position)
+                 <span class="req">*</span>
+                </label>
+              <select class="form-sel">
+               <option value="">Select position...</option>
+               @if (getpos) {
+                <option [value]="getpos.userID.id">P-{{ getpos.id }} · {{ getpos.title }}</option>
+               }
+              </select>
               <div class="form-hint">💡 Routing targets a Position, not a specific User</div>
-            </div>
-            <div class="form-grp">
-              <label class="form-lbl">CC</label>
-              <select class="form-sel"><option>Select…</option><option>D-002 · Administrative Div.</option><option>D-003 · Finance Div.</option></select>
             </div>
           </div>
         </div>
 
         <!-- Digital Signature -->
-        <div class="card">
+       <!-- <div class="card">
           <div class="card-head"><div class="card-title">✍ Digital Signature</div></div>
           <div class="card-body">
             <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--green-dim);border-radius:var(--r-sm);border:1px solid rgba(16,185,129,.2);margin-bottom:10px;">
@@ -145,4 +148,4 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->

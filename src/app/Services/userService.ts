@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  baseurl="http://192.168.1.173:5295/api/user/";
+  baseurl="http://localhost:5295/api/user/";
   constructor(private httpclient:HttpClient) { }
 
   getAll(): Observable<UserModel[]> {
