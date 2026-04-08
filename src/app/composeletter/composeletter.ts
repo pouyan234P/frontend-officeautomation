@@ -51,17 +51,18 @@ export class Composeletter implements OnInit {
           {
       "letterID": data.id,
       "letterSubject": data.subject,
+      "type": data.type,
       "priority": data.priority,
       "senderPositionID": this.posSender!.userID.id,
       "senderName": this.posSender!.userID.username,
       "senderTitle": this.posSender!.title,
-      "receiverPositionID": this.getpos!.id,
+      "receiverPositionID": this.getpos!.userID.id,
       "receiverName": this.getpos!.userID.username,
       "receiverTitle": this.getpos!.title,
       "actionType": 1,
       "status": 0
         };
-         this.refserv.createreferral(this.newreferral,this.newletter.type,this.deptId).subscribe(
+         this.refserv.createreferral(this.newreferral,this.deptId).subscribe(
           {
             next: (data)=>
             {

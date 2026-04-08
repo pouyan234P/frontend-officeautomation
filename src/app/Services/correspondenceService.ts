@@ -14,4 +14,10 @@ export class CorrespondenceService {
   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   return this.httpclient.post<LetterModel>(this.baseurl+'addLetter',model,{headers});
 }
+
+getLetter(idletter: number): Observable<LetterModel>
+{
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this.httpclient.get<LetterModel>(this.baseurl+'getLetter/'+idletter,{headers});
+}
 }

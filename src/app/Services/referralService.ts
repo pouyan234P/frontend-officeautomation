@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Typeenum } from '../Model/enumletter/Typeenum';
+import { Observable } from 'rxjs';
+import {ReferralModel} from '../Model/referralModel';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +10,25 @@ import { Typeenum } from '../Model/enumletter/Typeenum';
 export class ReferralService {
   private baseurl = 'http://localhost:5295/api/referral/'; // Replace with your actual server URL
   constructor(private httpclient:HttpClient) { }
-  createreferral(model:any,Type: Typeenum,iddept: number)
+  createreferral(model:any,iddept: number)
   {
-     const headers = new HttpHeaders();
-     headers.append('Content-type', 'application/json');
-     return this.httpclient.post(this.baseurl+"createreferral/"+Type+"/"+iddept,model,{headers})
+     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+     return this.httpclient.post(this.baseurl+"createreferral/"+iddept,model,{headers})
+  }
+  getAllByReciver(id: number): Observable<ReferralModel[]>
+  {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpclient.get<ReferralModel[]>(this.baseurl+"getAllByReciver/"+id,{headers});
+  }
+  updatereferral(model: any)
+  {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpclient.post(this.baseurl+"updatereferral",model,{headers});
   }
 
+  getbytyperecvierid(reciverid: number,type: Typeenum): Observable<ReferralModel[]>
+  {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpclient.post<ReferralModel[]>(this.baseurl+'getbytyperecvierid/'+ reciverid,JSON.stringify(type),{headers});
+  }
 }

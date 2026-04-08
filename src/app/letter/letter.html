@@ -13,83 +13,119 @@
         <div class="ll-head">
           <div class="tb-search" style="width:100%;"><span style="color:var(--text2);font-size:13px;">⌕</span><input type="text" placeholder="Search letters…"/></div>
           <div class="ll-tabs">
-            <button class="ll-tab active">All</button>
-            <button class="ll-tab">Inbound</button>
-            <button class="ll-tab">Outbound</button>
-            <button class="ll-tab">Internal</button>
-          </div>
+        <button class="ll-tab" [class.active]="activeTab() === 'All'" (click)="loadReferrals('All')">All</button>
+        <button class="ll-tab" [class.active]="activeTab() === 'Domestic'" (click)="loadReferrals('Domestic')">Domestic</button>
+        <button class="ll-tab" [class.active]="activeTab() === 'imported'" (click)="loadReferrals('imported')">imported</button>
+        <button class="ll-tab" [class.active]="activeTab() === 'exported'" (click)="loadReferrals('exported')">exported</button>
+      </div>
         </div>
         <div class="ll-items">
-          <div class="ll-item unread sel" onclick="selLetter(0)">
-            <div class="unr-dot"></div>
-            <div class="ll-r1"><div class="ll-from">Sarah Chen</div><div class="ll-no">2026-4021</div></div>
-            <div class="ll-subj">Q1 Budget Allocation Request</div>
-            <div class="ll-tags"><span class="badge type-in" style="font-size:9.5px;">Inbound</span><span class="badge pri-urgent" style="font-size:9.5px;">Urgent</span><span class="badge conf-conf" style="font-size:9.5px;">Confidential</span></div>
+      @for (ref of referrals(); track ref.id) {
+        <div class="ll-item" 
+             [class.sel]="selectedReferral()?.id === ref.id"
+             [class.unread]="!ref.viewDate"
+             (click)="onReferralClick(ref)">
+             
+          @if (!ref.status) { <div class="unr-dot"></div> }
+          
+          <div class="ll-r1">
+            <div class="ll-from">{{ ref.senderName }}</div>
+            <div class="ll-no">{{ ref.letterNo }}</div>
           </div>
-          <div class="ll-item unread" onclick="selLetter(1)">
-            <div class="unr-dot"></div>
-            <div class="ll-r1"><div class="ll-from">Executive Office</div><div class="ll-no">2026-4020</div></div>
-            <div class="ll-subj">Internal Circular No. 45/2026</div>
-            <div class="ll-tags"><span class="badge type-internal" style="font-size:9.5px;">Internal</span><span class="badge pri-normal" style="font-size:9.5px;">Normal</span></div>
-          </div>
-          <div class="ll-item" onclick="selLetter(2)">
-            <div class="ll-r1"><div class="ll-from">David Park</div><div class="ll-no">2026-4018</div></div>
-            <div class="ll-subj">Monthly IT Performance Report</div>
-            <div class="ll-tags"><span class="badge type-out" style="font-size:9.5px;">Outbound</span><span class="badge pri-normal" style="font-size:9.5px;">Normal</span></div>
-          </div>
-          <div class="ll-item" onclick="selLetter(3)">
-            <div class="ll-r1"><div class="ll-from">Legal Affairs</div><div class="ll-no">2026-4015</div></div>
-            <div class="ll-subj">Security Services Contract RFQ</div>
-            <div class="ll-tags"><span class="badge type-in" style="font-size:9.5px;">Inbound</span><span class="badge pri-flash" style="font-size:9.5px;">Critical</span><span class="badge conf-secret" style="font-size:9.5px;">Secret</span></div>
+          <div class="ll-subj">{{ ref.letterSubject }}</div>
+          
+          <div class="ll-tags">
+            <span class="badge" style="font-size:9.5px;">{{ ref.type | typeEnum}}</span>
+            <span class="badge type-in" style="font-size:9.5px;">{{ ref.priority | priorityEnum }}</span>
           </div>
         </div>
-      </div>
+      } @empty {
+        <div style="padding: 20px; text-align: center; color: var(--text2);">No referrals found.</div>
+      }
+    </div>
+  </div>
 
-      <div class="letter-view-panel">
-        <div class="lv-head">
-          <div class="lv-subj">Q1 Budget Allocation Request</div>
-          <div class="lv-meta">
-            <div class="lv-meta-item"><b>LetterNo:</b> <span class="mono" style="color:var(--accent);">2026-4021</span></div>
-            <div class="lv-meta-item"><b>Type:</b> <span class="badge type-in">Inbound</span></div>
-            <div class="lv-meta-item"><b>Priority:</b> <span class="badge pri-urgent">Urgent</span></div>
-            <div class="lv-meta-item"><b>Confidentiality:</b> <span class="badge conf-conf">Confidential</span></div>
-            <div class="lv-meta-item"><b>CreatedDate:</b> Mar 20, 2026</div>
-            <div class="lv-meta-item"><b>SentDate:</b> Mar 20, 2026 · 10:23 AM</div>
+      <!--this is my main letter-->
+      @if (selectedLetter(); as letter) {
+    <div class="letter-view-panel">
+      <div class="lv-head">
+        <div class="lv-subj">{{ letter.subject }}</div>
+        <div class="lv-meta">
+          <div class="lv-meta-item"><b>LetterNo:</b> <span class="mono" style="color:var(--accent);">{{ letter.letterNo }}</span></div>
+          <div class="lv-meta-item"><b>Type:</b> <span class="badge type-in">{{ letter.type |typeEnum}}</span></div>
+          <div class="lv-meta-item"><b>Priority:</b> <span class="badge pri-urgent">{{ letter.priority | priorityEnum}}</span></div>
+          <div class="lv-meta-item"><b>Confidentiality:</b> <span class="badge conf-conf">{{ letter.confidentiality }}</span></div>
+          <div class="lv-meta-item"><b>CreatedDate:</b> {{ letter.createdDate | date:'mediumDate' }}</div>
+        </div>
+        
+        <div style="margin-top:10px;">
+          <div class="text-sm text-muted fw7" style="margin-bottom:5px;">Abstract:</div>
+          <div style="font-size:12px;color:var(--text2);background:var(--surface2);padding:8px 12px;border-radius:6px;border:1px solid var(--border);">
+            {{ letter.abstract }}
           </div>
-          <div style="margin-top:10px;">
-            <div class="text-sm text-muted fw7" style="margin-bottom:5px;">Abstract:</div>
-            <div style="font-size:12px;color:var(--text2);background:var(--surface2);padding:8px 12px;border-radius:6px;border:1px solid var(--border);">Request for $4.0M Q1 budget covering operational expenses, capital equipment, training &amp; development, and IT infrastructure.</div>
-          </div>
-          <div style="margin-top:12px;">
+        </div>
+        <div style="margin-top:12px;">
             <div class="text-sm text-muted fw7" style="margin-bottom:8px;">Correspondence flow:</div>
             <div class="status-flow">
-              <div class="sf-step"><div class="sf-circle done">✓</div><div class="sf-label">Registered</div></div>
-              <div class="sf-line done"></div>
-              <div class="sf-step"><div class="sf-circle done">✓</div><div class="sf-label">Sent</div></div>
-              <div class="sf-line done"></div>
-              <div class="sf-step"><div class="sf-circle active">⏳</div><div class="sf-label">Review</div></div>
-              <div class="sf-line"></div>
-              <div class="sf-step"><div class="sf-circle pending">◎</div><div class="sf-label">Signature</div></div>
-              <div class="sf-line"></div>
-              <div class="sf-step"><div class="sf-circle pending">◎</div><div class="sf-label">Archived</div></div>
+              
+              <div class="sf-step">
+                <div class="sf-circle" [ngClass]="getStepStatus(selectedReferral()!.status, 0)">
+                  {{ getStepStatus(selectedReferral()!.status, 0) === 'done' ? '✓' : (getStepStatus(selectedReferral()!.status, 0) === 'active' ? '⏳' : '◎') }}
+                </div>
+                <div class="sf-label">Sent</div>
+              </div>
+              <div class="sf-line" [class.done]="getStepStatus(selectedReferral()!.status, 0) === 'done'"></div>
+
+              <div class="sf-step">
+                <div class="sf-circle" [ngClass]="getStepStatus(selectedReferral()!.status, 1)">
+                  {{ getStepStatus(selectedReferral()!.status, 1) === 'done' ? '✓' : (getStepStatus(selectedReferral()!.status, 1) === 'active' ? '⏳' : '◎') }}
+                </div>
+                <div class="sf-label">Viewed</div>
+              </div>
+              <div class="sf-line" [class.done]="getStepStatus(selectedReferral()!.status, 1) === 'done'"></div>
+
+              <div class="sf-step">
+                <div class="sf-circle" [ngClass]="getStepStatus(selectedReferral()!.status, 2)">
+                  {{ getStepStatus(selectedReferral()!.status, 2) === 'done' ? '✓' : (getStepStatus(selectedReferral()!.status, 2) === 'active' ? '⏳' : '◎') }}
+                </div>
+                <div class="sf-label">Review</div>
+              </div>
+              <div class="sf-line" [class.done]="getStepStatus(selectedReferral()!.status, 2) === 'done'"></div>
+
+              <div class="sf-step">
+                <div class="sf-circle" [ngClass]="getStepStatus(selectedReferral()!.status, 3)">
+                  {{ getStepStatus(selectedReferral()!.status, 3) === 'done' ? '✓' : (getStepStatus(selectedReferral()!.status, 3) === 'active' ? '⏳' : '◎') }}
+                </div>
+                <div class="sf-label">Signature</div>
+              </div>
+              <div class="sf-line" [class.done]="getStepStatus(selectedReferral()!.status, 3) === 'done'"></div>
+
+              <div class="sf-step">
+                <div class="sf-circle" [ngClass]="getStepStatus(selectedReferral()!.status, 4)">
+                  {{ getStepStatus(selectedReferral()!.status, 4) === 'done' ? '✓' : (getStepStatus(selectedReferral()!.status, 4) === 'active' ? '⏳' : '◎') }}
+                </div>
+                <div class="sf-label">Archived</div>
+              </div>
+
             </div>
           </div>
-        </div>
-        <div class="lv-body">
-          <p>Dear General Management,</p>
-          <p>Following the Q4 2025 board meeting, I am formally submitting the Q1 2026 budget request for your review and approval. The requested allocation is as follows:</p>
-          <p>1. Operational Expenses: $2,400,000<br/>2. Capital Equipment: $850,000<br/>3. Training &amp; Development: $220,000<br/>4. IT Infrastructure: $530,000</p>
-          <p><b>Total Requested: $4,000,000</b></p>
-          <p>This represents a 6.2% increase over Q1 2025. Please advise if further documentation is required.</p>
-          <p>Respectfully,<br/><b>Sarah Chen</b> · Director of Finance</p>
-        </div>
-        <div class="lv-ft">
-          <button class="btn btn-success btn-sm">✓ Approve</button>
-          <button class="btn btn-danger btn-sm">✕ Reject</button>
-          <button class="btn btn-ghost btn-sm">↩ Reply</button>
-          <button class="btn btn-ghost btn-sm">→ Forward</button>
-          <button class="btn btn-ghost btn-sm">🖨 Print</button>
-          <button class="btn btn-ghost btn-sm">📎 Attachments (2)</button>
-        </div>
+      </div>
+      
+      <div class="lv-body" [innerHTML]="letter.bodyHTML"></div>
+      
+      <div class="lv-ft">
+        <button class="btn btn-success btn-sm">✓ Approve</button>
+        <button class="btn btn-danger btn-sm">✕ Reject</button>
+        <button class="btn btn-ghost btn-sm">↩ Reply</button>
+        <button class="btn btn-ghost btn-sm">→ Forward</button>
       </div>
     </div>
+  } @else {
+    <div class="letter-view-panel" style="display: flex; align-items: center; justify-content: center; color: var(--text2);">
+      Select a correspondence to view details.
+    </div>
+  }
+  </div>
+  
+
+    

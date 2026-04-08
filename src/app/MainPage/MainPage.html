@@ -12,7 +12,7 @@
     <div class="sb-user">
       <div class="sb-av">JM</div>
       <div>
-        <div class="sb-uname">James Mitchell</div>
+        <div class="sb-uname">{{name}}</div>
         <div class="sb-urole">System Admin · UserID: U-001</div>
       </div>
       <div class="sb-online"></div>
@@ -32,7 +32,8 @@
 
       <div class="sb-sec">Module 2 — Correspondence</div>
       <a class="sb-item" routerLink="/mainpage/letters" routerLinkActive="active">
-        <span class="sb-ic">✉</span> Letters <span class="sb-badge">9</span>
+        <span class="sb-ic">✉</span> Letters 
+        <span class="sb-badge">{{unreadCount}}</span>
       </a>
       <a class="sb-item" routerLink="/mainpage/newletter" routerLinkActive="active">
         <span class="sb-ic">✏</span> Compose Letter
