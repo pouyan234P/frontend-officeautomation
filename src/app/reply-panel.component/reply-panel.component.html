@@ -1,0 +1,85 @@
+@if (show) {
+<div class="letter-view-panel" style="position: relative; overflow: hidden;">
+
+  <div class="lv-head" style="flex-shrink:0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div class="reply-header-title">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--accent)" stroke-width="2.5">
+          <path d="M3 10h10a8 8 0 018 8v2M3 10l6 6M3 10l6-6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Reply
+      </div>
+      <button class="btn btn-ghost btn-sm" (click)="close.emit()">✕ Close</button>
+    </div>
+    <div class="reply-to-meta">
+      Replying to: <span>{{ letterNo }}</span> · {{ senderName }}
+    </div>
+  </div>
+
+  <div style="padding:16px 22px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:12px;">
+
+    <div class="form-grid-3">
+      <div class="form-grp">
+        <label class="form-lbl">Type <span class="req">*</span></label>
+        <select class="form-sel" [(ngModel)]="replyLetter.type">
+          <option [value]="0">Domestic</option>
+          <option [value]="1">Imported</option>
+          <option [value]="2">Exported</option>
+        </select>
+      </div>
+      <div class="form-grp">
+        <label class="form-lbl">Priority <span class="req">*</span></label>
+        <select class="form-sel" [(ngModel)]="replyLetter.priority">
+          <option [value]="0">Normal</option>
+          <option [value]="1">Immediate</option>
+          <option [value]="2">Instantaneous</option>
+        </select>
+      </div>
+      <div class="form-grp">
+        <label class="form-lbl">Confidentiality <span class="req">*</span></label>
+        <select class="form-sel" [(ngModel)]="replyLetter.confidential">
+          <option [value]="0">Normal</option>
+          <option [value]="1">Confidential</option>
+          <option [value]="2">Secret</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-grp">
+      <label class="form-lbl">Subject <span class="req">*</span></label>
+      <input type="text" class="form-inp" [(ngModel)]="replyLetter.subject"/>
+    </div>
+
+    <div class="form-grp">
+      <label class="form-lbl">Body</label>
+      <div class="reply-body-wrap">
+        <div class="reply-toolbar">
+          <button class="btn btn-ghost btn-sm" style="font-weight:900;">B</button>
+          <button class="btn btn-ghost btn-sm" style="font-style:italic;">I</button>
+          <button class="btn btn-ghost btn-sm" style="text-decoration:underline;">U</button>
+        </div>
+        <textarea class="form-textarea" rows="6"
+          style="border:none;border-radius:0;background:var(--bg);"
+          placeholder="Write your reply here..."
+          [(ngModel)]="replyLetter.bodyHTML">
+        </textarea>
+        <div class="reply-quote">
+          <div class="reply-quote-label">
+            ─── Original · {{ letterNo }} · {{ senderName }} ───
+          </div>
+          <div class="reply-quote-body" [innerHTML]="originalBodyHTML"></div>
+        </div>
+      </div>
+    </div>
+
+   
+
+  </div>
+
+  <div class="lv-ft" style="flex-shrink:0;">
+    <button class="btn btn-primary btn-sm" (click)="onSend(replyLetter)">📤 Send Reply</button>
+    <button class="btn btn-ghost btn-sm" (click)="close.emit()">✕ Cancel</button>
+  </div>
+
+</div>
+}

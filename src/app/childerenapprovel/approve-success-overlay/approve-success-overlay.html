@@ -1,0 +1,20 @@
+@if (show) {
+  <div class="success-overlay">
+    <div class="success-ring" [class.pop]="animatePop">
+      <svg width="34" height="34" viewBox="0 0 34 34">
+        <path class="success-check" [class.draw]="animateDraw" d="M8 17 L14 23 L26 11"/>
+      </svg>
+    </div>
+    <div class="success-title" [class.show]="animateText">Approved ✓</div>
+    <div class="success-sub" [class.show]="animateText">
+      Letter {{ letterNo }} has been approved successfully<br>
+      and moved to the Signature stage.
+    </div>
+    <div class="success-chips" [class.show]="animateChips">
+      <span class="badge b-green">✓ Approved</span>
+      <span class="badge b-gray">Awaiting Signature</span>
+      <span class="badge b-gray">{{ senderName }} notified</span>
+    </div>
+    <button class="btn btn-ghost" style="margin-top:12px;" (click)="close.emit()">← Back to letters</button>
+  </div>
+}

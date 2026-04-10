@@ -1,0 +1,6 @@
+.success-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--surface);  /* ← this is covering everything */
+ 
+}

@@ -10,6 +10,7 @@ import { Attachment } from './attachment/attachment';
 import { Indicator } from './indicator/indicator';
 import { Dashboard } from './dashboard/dashboard';
 import { loginGuardGuard } from './gaurd/loginGuard-guard';
+import { Approve } from './approve/approve';
 export const routes: Routes = [
     { 
         path: '', 
@@ -35,5 +36,9 @@ export const routes: Routes = [
       { path: 'indicator',   component: Indicator },
       { path: 'dashboard',   component: Dashboard }
     ]
+  },
+  {
+    path: 'approved',
+    component: Approve
   }
 ];

@@ -120,6 +120,8 @@
                   <option [value]="dept.id">D-{{dept.id}} · {{dept.name}}</option>
               }
               </select>
+              </div>
+              <div class="form-grp">
               <label class="form-lbl">
                 now select (Position)
                  <span class="req">*</span>
@@ -131,10 +133,24 @@
                }
               </select>
               <div class="form-hint">💡 Routing targets a Position, not a specific User</div>
+              </div>
+              <div class="form-grp">
+          <label class="form-lbl">
+            now select your action type
+          <span class="req">*</span>
+          </label>
+          <select class="form-sel" [(ngModel)]="actiontype">
+            <option [ngValue]="0">ToAction</option>
+            <option [ngValue]="1">ToSign</option>
+            <option [ngValue]="2">ToInfo</option>
+          </select>
+        </div>
             </div>
+           
           </div>
         </div>
-
+        </div>
+        
         <!-- Digital Signature -->
        <!-- <div class="card">
           <div class="card-head"><div class="card-title">✍ Digital Signature</div></div>

@@ -1,0 +1,48 @@
+<div class="modal-bg" [class.open]="open">
+  <div class="modal" style="width:400px;">
+
+    <div class="confirm-warning" style="margin:20px 20px 0;">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      This action cannot be undone
+    </div>
+
+    <div class="modal-body" style="text-align:center;">
+      <div class="confirm-icon">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div class="confirm-title">Final Approval</div>
+      <div class="confirm-sub">
+        Are you sure you want to approve this letter?<br>
+        After approval, it will move to the Signature stage.
+      </div>
+      <div class="confirm-detail" style="text-align:left;">
+        <div class="confirm-detail-row">
+          <span>Letter No</span>
+          <span>{{ letterNo }}</span>
+        </div>
+        <div class="confirm-detail-row">
+          <span>Sender</span>
+          <span>{{ senderName }}</span>
+        </div>
+        <div class="confirm-detail-row">
+          <span>Type</span>
+          <span>{{ type | typeEnum }}</span>
+        </div>
+        <div class="confirm-detail-row">
+          <span>Priority</span>
+          <span class="badge pri-urgent">{{ priority | priorityEnum }} ⚠</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-ft" style="justify-content:center; gap:12px; padding:16px 20px;">
+      <button class="btn btn-ghost" (click)="cancel.emit()">← Cancel</button>
+      <button class="btn btn-success" (click)="confirm.emit()">✓ Yes, Approve</button>
+    </div>
+
+  </div>
+</div>

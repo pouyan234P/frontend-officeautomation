@@ -1,0 +1,20 @@
+@if (showreplaysuccess) {
+  <div class="success-overlay">
+    <div class="success-ring" [class.pop]="animatePop1">
+      <svg width="34" height="34" viewBox="0 0 34 34">
+        <path class="success-check" [class.draw]="animateDraw1" d="M8 17 L14 23 L26 11"/>
+      </svg>
+    </div>
+    <div class="success-title" [class.show]="animateText1">Approved ✓</div>
+    <div class="success-sub" [class.show]="animateText1">
+      Letter {{ letterNo }} has been approved successfully<br>
+      and replay to {{recivername}}.
+    </div>
+    <div class="success-chips" [class.show]="animateChips1">
+      <span class="badge b-green">✓ Approved</span>
+      <span class="badge b-gray">Awaiting Signature</span>
+      <span class="badge b-gray">{{ sendername }} notified</span>
+    </div>
+    <button class="btn btn-ghost" style="margin-top:12px;" (click)="close.emit()">← Back to letters</button>
+  </div>
+}

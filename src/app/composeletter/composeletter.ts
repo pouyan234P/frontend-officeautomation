@@ -7,6 +7,7 @@ import { PositionService } from '../Services/positionService';
 import { CorrespondenceService } from '../Services/correspondenceService';
 import { CookieService } from 'ngx-cookie-service';
 import { ReferralService } from '../Services/referralService';
+import { actionTypeenum } from '../Model/enumreferral/actionTypeenum';
 
 @Component({
   selector: 'app-composeletter',
@@ -23,6 +24,7 @@ export class Composeletter implements OnInit {
   getdept: GetDepartmentModel[]=[];
   getpos: GetPosition | undefined;
   posSender: GetPosition | undefined;
+  actiontype: actionTypeenum |undefined;
   ngOnInit(): void {
     this.loaddep();
   }
@@ -59,7 +61,7 @@ export class Composeletter implements OnInit {
       "receiverPositionID": this.getpos!.userID.id,
       "receiverName": this.getpos!.userID.username,
       "receiverTitle": this.getpos!.title,
-      "actionType": 1,
+      "actionType": this.actiontype,
       "status": 0
         };
          this.refserv.createreferral(this.newreferral,this.deptId).subscribe(
