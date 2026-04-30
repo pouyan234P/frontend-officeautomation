@@ -29,7 +29,7 @@
           @if (!ref.status) { <div class="unr-dot"></div> }
           
           <div class="ll-r1">
-            <div class="ll-from">{{ ref.senderName }}</div>
+            <div class="ll-from">{{ ref.receiverName }}</div>
             <div class="ll-no">{{ ref.letterNo }}</div>
           </div>
           <div class="ll-subj">{{ ref.letterSubject }}</div>
@@ -126,79 +126,11 @@
       {
          <div class="reply-quote">
           <div class="reply-quote-label">
-            ─── Letternumber · {{ selectedReferral()?.replayToLetterNo }} · {{ selectedReferral()?.senderName }} ───
+            ─── Letternumber · {{selectedReferral()?.replayToLetterNo }} · {{ selectedReferral()?.senderName }} ───
           </div>
           <div class="reply-quote-body" [innerHTML]="letter.bodyReplay"></div>
         </div>
       }
-        @if(selectedReferral()?.actionType !=2)
-      {
-      <div class="lv-ft">
-        <button class="btn btn-success btn-sm" (click)="openConfirm()">✓ Approve</button>
-        <button class="btn btn-danger btn-sm" (click)="openReject()"> ✕ Reject</button>
-        <button class="btn btn-ghost btn-sm" (click)="openReply()">↩ Reply</button>
-        <button class="btn btn-ghost btn-sm">→ Forward</button>
-      </div>
-    }
-    <!-- Confirmation Modal -->
-  <app-approve-confirm-modal
-  [open]="showConfirm()"
-  [letterNo]="letter.letterNo"
-  [senderName]="selectedReferral()?.senderName ?? ''"
-  [type]="letter.type"
-  [priority]="letter.priority"
-  (cancel)="closeConfirm()"
-  (confirm)="doApprove()">
-</app-approve-confirm-modal>
-
-      @if (showSuccess()) {
-  <app-approve-success-overlay
-  [show]="showSuccess()"
-  [animatePop]="animatePop()"
-  [animateDraw]="animateDraw()"
-  [animateText]="animateText()"
-  [animateChips]="animateChips()"
-  [letterNo]="selectedLetter()?.letterNo ?? ''"
-  [senderName]="selectedReferral()?.senderName ?? ''"
-  (close)="closeSuccess()">
-</app-approve-success-overlay>
-}
-@if (showReply()) {
-  <app-reply-panel
-    [show]="showReply()"
-    [letterID]="letter.id"
-    [letterNo]="letter.letterNo"
-    [senderName]="selectedReferral()?.senderName ?? ''"
-    [subject]="letter.subject"
-    [originalBodyHTML]="letter.bodyHTML"
-    [myreferral]="selectedReferral()"
-    (close)="closeReply()"
-    (send)="sendReply()">
-  </app-reply-panel>
-}
- @if (showreplaysuccess()) {
-  <app-approve-success-replay
-  [showreplaysuccess]="showreplaysuccess()"
-  [animatePop1]="animatePop1()"
-  [animateDraw1]="animateDraw1()"
-  [animateText1]="animateText1()"
-  [animateChips1]="animateChips1()"
-  [letterNo]="selectedLetter()?.letterNo ?? ''"
-  [sendername]="selectedReferral()?.senderName ?? ''"
-  [recivername]="selectedReferral()?.receiverName ?? ''"
-  (close)="closeSuccessreplay()">
-</app-approve-success-replay>
-}
-
-@if (showReject()) 
-{
-  <app-reject-panel
-  [open]="showReject()"
-  [getref]="selectedReferral()!"
-  (cancel)="closeReject()"
-  (confirm)="doReject()">
-</app-reject-panel>
-}
     </div>
   } @else {
     <div class="letter-view-panel" style="display: flex; align-items: center; justify-content: center; color: var(--text2);">

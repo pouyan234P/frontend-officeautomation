@@ -1,0 +1,274 @@
+<div id="stage">
+  <div id="reel">
+
+    <!-- SCENE 1: FORGE Intro -->
+    <div class="scene" id="sc1">
+      <div id="ic1"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      <div id="nm1">FORGE</div>
+      <div id="sb1">Industrial Office Automation</div>
+      <div id="tl1"></div>
+      <div class="sc1-tag" id="tg1">
+        <div class="sc1-pill">Org Chart</div>
+        <div class="sc1-pill">Workflow Engine</div>
+        <div class="sc1-pill">Correspondence</div>
+      </div>
+    </div>
+
+    <!-- SCENE 2: Org Chart -->
+    <div class="scene" id="sc2">
+      <div class="sc-header" id="org-hdr">
+        <div class="sc-mod">Module 01</div>
+        <div class="sc-title">Org Chart &amp; Positions</div>
+        <div class="sc-desc">Recursive department tree with multi-role support</div>
+      </div>
+      <div id="org-tree">
+        <div class="org-row">
+          <div class="org-box root" id="ob0">
+            <div class="ob-name">Director General</div>
+            <div class="ob-role">Executive Office</div>
+          </div>
+        </div>
+        <div class="org-connector" id="oc0" style="height:20px;"></div>
+        <div style="display:flex;gap:80px;align-items:flex-start;justify-content:center;">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div class="org-box" id="ob1"><div class="ob-name">Admin Dept</div><div class="ob-role">Head of Admin</div></div>
+            <div class="org-connector" id="oc1" style="height:16px;"></div>
+            <div style="display:flex;gap:10px;">
+              <div class="org-box" id="ob2" style="min-width:80px;"><div class="ob-name">HR Unit</div><div class="ob-role">HR Officer</div></div>
+              <div class="org-box" id="ob3" style="min-width:80px;"><div class="ob-name">Registry</div><div class="ob-role">Clerk</div></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div class="org-box" id="ob4"><div class="ob-name">Finance Dept</div><div class="ob-role">CFO</div></div>
+            <div class="org-connector" id="oc2" style="height:16px;"></div>
+            <div style="display:flex;gap:10px;">
+              <div class="org-box" id="ob5" style="min-width:80px;"><div class="ob-name">Budget</div><div class="ob-role">Analyst</div></div>
+              <div class="org-box" id="ob6" style="min-width:80px;"><div class="ob-name">Audit</div><div class="ob-role">Auditor</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 3: Workflow Engine -->
+    <div class="scene" id="sc3">
+      <div class="sc-header" id="wf-hdr">
+        <div class="sc-mod">Module 02</div>
+        <div class="sc-title">Workflow Engine</div>
+        <div class="sc-desc">Multi-step approval chains with digital signatures</div>
+      </div>
+      <div id="wf-steps">
+        <div class="wf-step" id="ws1">
+          <div class="wf-num done" id="wn1">1</div>
+          <div class="wf-body">
+            <div class="wf-name">Request Submitted</div>
+            <div class="wf-detail">Initiator: Ahmed Khalil · Dept: Finance</div>
+            <span class="wf-badge done">Completed</span>
+          </div>
+        </div>
+        <div class="wf-connector" id="wc1"></div>
+        <div class="wf-step" id="ws2">
+          <div class="wf-num done" id="wn2">2</div>
+          <div class="wf-body">
+            <div class="wf-name">Department Head Review</div>
+            <div class="wf-detail">Reviewer: Sara Mansour · CFO</div>
+            <span class="wf-badge done">Approved</span>
+          </div>
+        </div>
+        <div class="wf-connector" id="wc2"></div>
+        <div class="wf-step" id="ws3">
+          <div class="wf-num active" id="wn3">3</div>
+          <div class="wf-body">
+            <div class="wf-name">Director General Signature</div>
+            <div class="wf-detail">Awaiting digital signature · Priority: High</div>
+            <span class="wf-badge active">In Progress</span>
+          </div>
+        </div>
+        <div class="wf-connector" id="wc3"></div>
+        <div class="wf-step" id="ws4">
+          <div class="wf-num" id="wn4">4</div>
+          <div class="wf-body">
+            <div class="wf-name">Archive &amp; Dispatch</div>
+            <div class="wf-detail">Auto-numbered · Sent to Registry</div>
+            <span class="wf-badge pending">Pending</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 4: Correspondence -->
+    <div class="scene" id="sc4">
+      <div class="sc-header" id="cor-hdr">
+        <div class="sc-mod">Module 03</div>
+        <div class="sc-title">Correspondence Letter</div>
+        <div class="sc-desc">Smart inbound &amp; outbound with full audit trail</div>
+      </div>
+      <div id="letter-wrap">
+        <div class="ltr-meta">
+          <div class="ltr-from">
+            <b>Ministry of Finance</b>
+            <span>Outbound Correspondence</span>
+          </div>
+          <div class="ltr-num">
+            <b id="ltr-ref">REF-2026-0041</b>
+            <span id="ltr-date">April 11, 2026</span>
+          </div>
+        </div>
+        <div class="ltr-divider"></div>
+        <div class="ltr-subject" id="ltr-subj"></div>
+        <div class="ltr-body">
+          <p id="ltr-p1"></p>
+          <p id="ltr-p2"></p>
+        </div>
+        <div class="ltr-sig" id="ltr-sig" style="opacity:0;transition:opacity .5s;">
+          <span>Respectfully,</span>
+          <b>Director General · Ahmed Al-Rashid</b>
+          <span style="color:#3b82f6;font-size:10px;">✦ Digitally Signed</span>
+        </div>
+        <div class="ltr-status" id="ltr-sts" style="opacity:0;transition:opacity .4s;">
+          <div class="ltr-status-dot" style="background:#4ade80;"></div>
+          <span style="color:#4ade80;font-size:10px;">Dispatched · Audit trail recorded</span>
+        </div>
+      </div>
+    </div>
+    <!-- SCENE 6: Live UI Showcase -->
+    <div class="scene" id="sc6">
+      <div id="ui6-hdr">
+        <div class="sc-mod">Module 04</div>
+        <div class="sc-title">Letters &amp; Correspondence</div>
+        <div class="sc-desc">Inbox, flow tracker, and approval actions</div>
+      </div>
+
+      <div id="ui6-layout">
+
+        <!-- LEFT: letter list -->
+        <div id="ui6-left">
+          <div id="ui6-search"><span style="color:#374151;">⌕</span> Search letters…</div>
+          <div id="ui6-tabs">
+            <div class="u6tab act">All</div>
+            <div class="u6tab" style="margin-left:4px;">Domestic</div>
+            <div class="u6tab" style="margin-left:4px;">Imported</div>
+            <div class="u6tab" style="margin-left:4px;">Exported</div>
+          </div>
+          <div id="ui6-list">
+            <div class="u6item sel" id="u6i0">
+              <div class="u6item-top"><span class="u6item-name">pouyan_parvaresh</span><span class="u6item-num">2026/2/0001</span></div>
+              <div class="u6item-subj">tyutyutyu</div>
+              <div class="u6item-tags"><span class="u6tag dom">Domestic</span><span class="u6tag nor">Normal</span></div>
+            </div>
+            <div class="u6item" id="u6i1">
+              <div class="u6item-top"><span class="u6item-name">pouyan_parvaresh</span><span class="u6item-num">2026/2/0001</span></div>
+              <div class="u6item-subj">ghjghj</div>
+              <div class="u6item-tags"><span class="u6tag imp">Imported</span><span class="u6tag nor">Normal</span></div>
+            </div>
+            <div class="u6item" id="u6i2">
+              <div class="u6item-top"><span class="u6item-name">nayer_parvaresh</span><span class="u6item-num">2026/2/0002</span></div>
+              <div class="u6item-subj">sdfsdfsdf</div>
+              <div class="u6item-tags"><span class="u6tag dom">Domestic</span><span class="u6tag nor">Normal</span></div>
+            </div>
+            <div class="u6item" id="u6i3">
+              <div class="u6item-top"><span class="u6item-name">pouyan_parvaresh</span><span class="u6item-num">2026/2/0003</span></div>
+              <div class="u6item-subj">dssfsdf</div>
+              <div class="u6item-tags"><span class="u6tag dom">Domestic</span><span class="u6tag nor">Normal</span></div>
+            </div>
+            <div class="u6item" id="u6i4">
+              <div class="u6item-top"><span class="u6item-name">pouyan_parvaresh</span><span class="u6item-num">2026/2/0004</span></div>
+              <div class="u6item-subj">jhkljklkjl</div>
+              <div class="u6item-tags"><span class="u6tag dom">Domestic</span><span class="u6tag nor">Normal</span></div>
+            </div>
+            <div class="u6item" id="u6i5">
+              <div class="u6item-top"><span class="u6item-name">pouyan_parvaresh</span><span class="u6item-num">2026/0/0006</span></div>
+              <div class="u6item-subj">Re: rtyrty</div>
+              <div class="u6item-tags"><span class="u6tag dom">Domestic</span><span class="u6tag nor">Normal</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: letter detail -->
+        <div id="ui6-right">
+          <div id="ui6-detail-top">
+            <div id="ui6-d-title">tyutyutyu</div>
+            <div class="u6meta">
+              <div class="u6meta-item"><b style="color:#60a5fa;">LetterNo:</b> 2026/2/0001</div>
+              <div class="u6meta-item">Type: <span class="u6badge dom">Domestic</span></div>
+              <div class="u6meta-item">Priority: <span class="u6badge nor">Normal</span></div>
+              <div class="u6meta-item">Confidentiality: <span style="color:#f97316;">0</span></div>
+              <div class="u6meta-item">CreatedDate: <b>Apr 8, 2026</b></div>
+            </div>
+          </div>
+
+          <div id="ui6-abstract">
+            <div id="ui6-abstract-label">Abstract</div>
+            <div id="ui6-abstract-bar"></div>
+          </div>
+
+          <div id="ui6-flow">
+            <div id="ui6-flow-label">Correspondence flow:</div>
+            <div id="ui6-flow-track">
+              <div class="u6fnode" id="fn0">
+                <div class="u6fnode-circle done" id="fc0">✓</div>
+                <div class="u6fnode-label">Sent</div>
+              </div>
+              <div class="u6fline"><div class="u6fline-fill" id="fl0" style="width:0;"></div></div>
+              <div class="u6fnode" id="fn1">
+                <div class="u6fnode-circle done" id="fc1">✓</div>
+                <div class="u6fnode-label">Viewed</div>
+              </div>
+              <div class="u6fline"><div class="u6fline-fill active" id="fl1" style="width:0;"></div></div>
+              <div class="u6fnode" id="fn2">
+                <div class="u6fnode-circle active" id="fc2">⏳</div>
+                <div class="u6fnode-label">Review</div>
+              </div>
+              <div class="u6fline"><div class="u6fline-fill" id="fl2" style="width:0;"></div></div>
+              <div class="u6fnode" id="fn3">
+                <div class="u6fnode-circle" id="fc3">✎</div>
+                <div class="u6fnode-label">Signature</div>
+              </div>
+              <div class="u6fline"><div class="u6fline-fill" id="fl3" style="width:0;"></div></div>
+              <div class="u6fnode" id="fn4">
+                <div class="u6fnode-circle" id="fc4">○</div>
+                <div class="u6fnode-label">Done</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="ui6-body">
+            <div id="ui6-body-text">xcvxcvcxvbvcmn</div>
+          </div>
+
+          <div id="ui6-actions">
+            <button class="u6btn approve">✓ Approve</button>
+            <button class="u6btn reject">✕ Reject</button>
+            <button class="u6btn reply">↩ Reply</button>
+            <button class="u6btn fwd">→ Forward</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- SCENE 5: End card -->
+    <div class="scene" id="sc5" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;">
+      <div style="width:56px;height:56px;background:#2563eb;border-radius:12px;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.5);transition:opacity .6s,transform .6s;" id="ec-icon">
+        <svg width="28" height="28" stroke="#fff" fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div style="font-size:28px;font-weight:800;opacity:0;transform:translateY(12px);transition:opacity .5s .3s,transform .5s .3s;" id="ec-title">FORGE</div>
+      <div style="font-size:12px;color:#6b7280;opacity:0;transition:opacity .4s .6s;" id="ec-sub">Your industrial office. Automated.</div>
+      <div style="display:flex;gap:8px;margin-top:4px;opacity:0;transition:opacity .4s .8s;" id="ec-tags">
+        <span style="background:#0f1f13;border:1px solid #1a3a22;color:#4ade80;font-size:10px;padding:3px 10px;border-radius:999px;">All systems operational</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="scene-label">FORGE · Industrial Office Automation</div>
+  <div id="dots">
+    <div class="dot active" id="d0"></div>
+    <div class="dot" id="d1"></div>
+    <div class="dot" id="d2"></div>
+    <div class="dot" id="d3"></div>
+    <div class="dot" id="d4"></div>
+    <div class="dot" id="d5"></div>
+  </div>
+  <div id="prog-bar"></div>
+  <button id="replay" (click)="startReel()">↺ Replay</button>
+</div>

@@ -13,11 +13,12 @@ import { ApproveConfirmModal } from '../childerenapprovel/approve-confirm-modal/
 import { ApproveSuccessOverlay } from '../childerenapprovel/approve-success-overlay/approve-success-overlay';
 import { ReplyPanelComponent } from '../reply-panel.component/reply-panel.component';
 import { ApproveSuccessReplay } from '../approve-success-replay/approve-success-replay';
+import { RejectPanel } from '../reject-panel/reject-panel';
 
 @Component({
   selector: 'app-letter',
   //standalone: true,
-  imports: [TypeEnumPipePipe,PriorityPipe,DatePipe,NgClass,ApproveConfirmModal,ApproveSuccessOverlay,ReplyPanelComponent,ApproveSuccessReplay],
+  imports: [TypeEnumPipePipe,PriorityPipe,DatePipe,NgClass,ApproveConfirmModal,ApproveSuccessOverlay,ReplyPanelComponent,ApproveSuccessReplay,RejectPanel],
   templateUrl: './letter.html',
   styleUrl: './letter.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,10 +43,10 @@ export class Letter implements OnInit {
   animateDraw1 = signal(false);
   animateText1 = signal(false);
   animateChips1 = signal(false);
-
   showReply = signal<boolean>(false);
+  showReject= signal<boolean>(false);
   ngOnInit(): void {
-    this.loadReferrals('All')
+    this.loadReferrals('All');
   }
   constructor(private refservice: ReferralService,private cookie: CookieService,private letterservice: CorrespondenceService,private router: Router,private cdr: ChangeDetectorRef)
   {
@@ -124,7 +125,7 @@ export class Letter implements OnInit {
    getStepStatus(currentStatus: number | undefined, stepValue: number): 'done' | 'active' | 'pending' {
     if(this.selectedReferral()?.actionType==0 && this.selectedReferral()?.status!=1)
     {
-      currentStatus=currentStatus!+3;
+      currentStatus=currentStatus!+2;
     }
     else
     currentStatus=currentStatus! + 1;
@@ -148,8 +149,10 @@ doApprove()
 
   if (currentReferral?.actionType === 0) {
     // 1. Create an updated copy of the object
-    const updatedReferral = { ...currentReferral, status: 2 };
-
+    const updatedReferral = { ...currentReferral, status: 3 };
+    const todaydate=new Date();
+    todaydate.setHours(0,0,0,0);
+    updatedReferral.actionDate=todaydate;
     // 2. Update the signal so Angular knows the state has changed
     this.selectedReferral.set(updatedReferral);
 
@@ -232,5 +235,11 @@ closeSuccessreplay() {
   this.animateDraw1.set(false);
   this.animateText1.set(false);
   this.animateChips1.set(false);
+}
+openReject()  { this.showReject.set(true); }
+closeReject() { this.showReject.set(false); }
+doReject() {
+  // call your API with reason
+  this.showReject.set(false);
 }
  }

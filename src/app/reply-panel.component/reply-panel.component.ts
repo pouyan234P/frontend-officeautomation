@@ -50,7 +50,9 @@ export class ReplyPanelComponent implements OnChanges {
   
   onSend(model: any) 
   {
-    model.ReplyToLetterID=this.letterID;
+    model.replyToLetterID=this.letterID!;
+    model.bodyReplay=this.originalBodyHTML;
+    model.isDraft=false;
     const myletter=this.letterservice.addLetter(model).subscribe(
       {
         next: (data)=>
@@ -60,6 +62,7 @@ export class ReplyPanelComponent implements OnChanges {
       "letterID": data.id,
       "letterSubject": data.subject,
       "type": data.type,
+      "replayToLetterNo":this.myreferral!.replayToLetterNo,
       "priority": data.priority,
       "senderPositionID": this.cookies.get('id'),
       "senderName": this.cookies.get('name'),
@@ -67,8 +70,8 @@ export class ReplyPanelComponent implements OnChanges {
       "receiverPositionID": this.myreferral!.senderPositionID,
       "receiverName": this.myreferral!.senderName,
       "receiverTitle": this.myreferral!.senderTitle,
-      "actionType": this.myreferral!.actionType,
-      "status": 0
+      "actionType": 2,
+      "status": 3
         };
         var deptid: number=0;
         this.posservice.getPositionbyuser(+this.cookies.get('id')).subscribe(
@@ -86,10 +89,14 @@ export class ReplyPanelComponent implements OnChanges {
                   console.log("myletter: ",data);
                 }
             });
+        },
+        complete: ()=>
+        {
+          this.send.emit();
         }
       }
     )
-    this.send.emit();
+    
   }
 
 }

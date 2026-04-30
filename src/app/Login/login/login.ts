@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { authservice } from '../../Services/authservice';
 import { Router } from '@angular/router';
+import { ForgeReel } from '../../forge-reel/forge-reel';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule,ForgeReel],
   templateUrl: `./login.html`,
   styleUrl: './login.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

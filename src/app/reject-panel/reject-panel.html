@@ -1,0 +1,126 @@
+<!-- reject-modal.component.html -->
+<div class="modal-bg" [class.open]="open">
+  <div class="modal">
+
+    @if (!submitted) {
+
+      <div class="modal-top">
+        <div class="modal-icon-wrap">
+          <svg viewBox="0 0 20 20" fill="none">
+            <path d="M10 3L17 16H3L10 3Z" stroke="#ef4444" stroke-width="1.6" stroke-linejoin="round"/>
+            <line x1="10" y1="8" x2="10" y2="11.5" stroke="#ef4444" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="10" cy="13.5" r=".8" fill="#ef4444"/>
+          </svg>
+        </div>
+        <div class="modal-heading">
+          <div class="modal-title">Reject letter</div>
+          <div class="modal-sub">This action will return the letter to the sender for revision.</div>
+        </div>
+        <button class="modal-x" (click)="onCancel()">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="modal-body">
+        <div class="letter-card">
+          <div class="lc-field">
+            <div class="lc-label">Letter no.</div>
+            <div class="lc-val mono">{{ getref?.letterNo }}</div>
+          </div>
+          <div class="lc-field">
+            <div class="lc-label">From</div>
+            <div class="lc-val">{{ getref?.senderName }}</div>
+          </div>
+          <div class="lc-field">
+            <div class="lc-label">Priority</div>
+            <div><span class="badge" [ngClass]="priorityClass">{{ getref?.priority! | priorityEnum }}</span></div>
+          </div>
+          <div class="lc-field">
+            <div class="lc-label">Type</div>
+            <div><span class="badge" [ngClass]="typeClass">{{ getref?.type!! | typeEnum }}</span></div>
+          </div>
+        </div>
+
+        <div class="field-block">
+          <div class="field-header">
+            <div class="field-label">
+              Reason for rejection
+              <span class="req-pill">Required</span>
+            </div>
+            <div class="char-count" [class.warn]="rejectReason.length > 450" [class.over]="rejectReason.length > 500">
+              {{ rejectReason.length }} / 500
+            </div>
+          </div>
+
+          <textarea
+            [(ngModel)]="rejectReason"
+            (ngModelChange)="onTextChange()"
+            [class.has-error]="showValidation && !isValid"
+            placeholder="Describe why this letter is being rejected and what changes are needed…">
+          </textarea>
+             
+
+          @if (showValidation && !isValid) {
+            <div class="val-msg">
+              <svg viewBox="0 0 13 13" fill="none" width="13" height="13">
+                <circle cx="6.5" cy="6.5" r="5.5" stroke="#ef4444" stroke-width="1.2"/>
+                <line x1="6.5" y1="4" x2="6.5" y2="7" stroke="#ef4444" stroke-width="1.2" stroke-linecap="round"/>
+                <circle cx="6.5" cy="9" r=".6" fill="#ef4444"/>
+              </svg>
+              Please provide a reason before rejecting.
+            </div>
+          }
+
+          <div class="quick-chips">
+            @for (chip of quickChips; track chip.label) {
+              <div class="chip" [class.active]="activeChip === chip.label" (click)="useChip(chip)">
+                {{ chip.label }}
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="footer-hint">Sender will be notified via email.</div>
+        <button class="btn btn-ghost btn-sm" (click)="onCancel()">Cancel</button>
+        <button class="btn btn-danger btn-sm" [disabled]="!isValid" (click)="onReject()">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <path d="M2 2l9 9M11 2L2 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Reject &amp; Return
+        </button>
+      </div>
+
+    } @else {
+
+      <div class="success-top">
+        <div class="success-ring">
+          <svg viewBox="0 0 24 24" fill="none" width="24" height="24">
+            <path d="M6 6l12 12M18 6L6 18" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="success-title">Letter rejected &amp; returned</div>
+        <div class="success-desc">
+          <strong>{{ getref?.letterNo }}</strong> has been rejected and returned to
+          <strong>{{ getref?.senderName }}</strong>.<br/>They will receive an email notification.
+        </div>
+      </div>
+
+      <div class="reason-preview">
+        <div class="rp-label">Rejection reason</div>
+        <div class="rp-text">{{ rejectReason }}</div>
+      </div>
+
+      <div class="success-footer">
+        <button class="btn btn-ghost btn-sm" (click)="onClose()">Close</button>
+      </div>
+
+    }
+
+  </div>
+</div>

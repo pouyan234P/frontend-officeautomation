@@ -5,9 +5,11 @@ import { referralStatusenum } from "./enumreferral/referralStatusenum";
 
 export interface ReferralModel {
     id: string;
+    parentReferralId: string;
     letterID: number;
     letterSubject: string;
     letterNo: string;
+    replayToLetterNo: string;
     type: Typeenum;
     priority: Priorityenum;
     senderPositionID: number;

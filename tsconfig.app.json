@@ -4,6 +4,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
+    "paths": {
+      "@angular/animations": ["./node_modules/@angular/animations"]
+    },
     "types": []
   },
   "include": [

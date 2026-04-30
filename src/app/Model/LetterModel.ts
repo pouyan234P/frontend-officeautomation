@@ -13,6 +13,8 @@ export interface LetterModel
     confidentiality: Confidentialityenum;
     type: Typeenum;
     bodyHTML: string;
+    bodyReplay: string;
     CreatorPositionID: number;
     isDraft: boolean;
+    replyToLetterID: number;
 }

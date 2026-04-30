@@ -45,11 +45,14 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
 @keyframes orbPulse{0%,100%{opacity:0.6;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15);}}
 
 /* ══ SPLIT LAYOUT ══ */
-.shell{
-  position:relative;z-index:1;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  height:100vh;
+.shell {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  /* The minmax(0, 1fr) prevents the 500% width child from stretching the column */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); 
+  height: 100vh;
+  width: 100vw;
 }
 
 /* ══ LEFT PANEL ══ */
@@ -353,4 +356,13 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
   .shell{grid-template-columns:1fr;}
   .left-panel{display:none;}
   .right-panel{padding:24px;}
+}
+app-forge-reel {
+  display: block;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden; /* This is crucial! It stops the 500% width from escaping */
+  position: relative;
+  border-right: 1px solid var(--border);
+  background: linear-gradient(160deg, rgba(14, 20, 32, 0.95), rgba(8, 12, 18, 0.98));
 }

@@ -1,98 +1,164 @@
-<!-- ════════════════════════════
-       PAGE: INDICATOR BOOK
-  ════════════════════════════ -->
-    <div class="pg-head" style="padding-top: 20px;">
-      <div>
-        <div class="pg-title">Indicator Book</div>
-        <div class="pg-sub">Entity: IndicatorBook — Serial numbering for letters, preventing duplicates across fiscal years</div>
-      </div>
-      <button class="btn btn-primary">+ New Year Book</button>
+<!-- Info Banner -->
+  <div class="info-banner">
+    <div class="info-banner-title">📒 Why is the IndicatorBook critical?</div>
+    <div class="info-banner-body">
+      Every letter must carry a <b style="color:var(--accent)">globally unique reference number</b>.
+      This number is a compound of <b style="color:var(--green)">fiscal year + type + sequential serial</b>.
+      Each <b style="color:var(--purple)">Typecorrespondence</b> (Incoming, Outgoing, Internal) maintains its
+      <b style="color:var(--amber)">own independent counter</b> per year — so <code style="font-family:var(--mono);font-size:11.5px;">2026/Incoming/0041</code>
+      and <code style="font-family:var(--mono);font-size:11.5px;">2026/Outgoing/0041</code> are distinct.
+      At the start of each new year all sequences reset to 1; prior years are sealed and archived.
     </div>
+  </div>
 
-    <div style="background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px solid var(--border2);border-radius:var(--r);padding:20px;margin-bottom:16px;">
-      <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:8px;">📒 Why is the IndicatorBook critical?</div>
-      <div style="font-size:12.5px;line-height:1.9;color:var(--text2);">
-        Every letter must carry a <b style="color:var(--accent);">globally unique reference number</b>. This number is typically a compound of
-        <b style="color:var(--green);">fiscal year + sequential serial</b>. The IndicatorBook guarantees no two letters within a year share the same number.
-        At the start of each new year the sequence resets to 1 — prior years are sealed and archived.
+  <!-- Year Grid -->
+  <div class="year-grid">
+
+    <!-- FY 2026 Active -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">📒 Book — FY 2026</div>
+        <span class="badge b-green">● Active</span>
       </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-      <div class="card">
-        <div class="card-head"><div class="card-title">📒 Book — FY 2026</div><div class="card-actions"><span class="badge b-green">● Active</span></div></div>
-        <div class="card-body">
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
-            <div style="text-align:center;padding:13px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border);">
-              <div style="font-size:20px;font-weight:900;color:var(--accent);font-family:var(--mono);">2026</div>
-              <div class="text-sm text-muted" style="margin-top:3px;">Fiscal Year</div>
-            </div>
-            <div style="text-align:center;padding:13px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border);">
-              <div style="font-size:20px;font-weight:900;color:var(--green);font-family:var(--mono);">4021</div>
-              <div class="text-sm text-muted" style="margin-top:3px;">Last Number</div>
-            </div>
-            <div style="text-align:center;padding:13px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border);">
-              <div style="font-size:20px;font-weight:900;color:var(--purple);font-family:var(--mono);">4022</div>
-              <div class="text-sm text-muted" style="margin-top:3px;">Next Available</div>
-            </div>
-          </div>
-          <div class="tbl">
-            <table>
-              <thead><tr><th>LetterNo</th><th>LetterID</th><th>Date</th><th>Type</th></tr></thead>
-              <tbody>
-                <tr><td class="ind-serial" style="font-size:13px;">2026/4021</td><td class="mono" style="color:var(--teal);">L-4021</td><td class="text-sm text-muted mono">Mar 20</td><td><span class="badge type-in">Inbound</span></td></tr>
-                <tr><td class="ind-serial" style="font-size:13px;">2026/4020</td><td class="mono" style="color:var(--teal);">L-4020</td><td class="text-sm text-muted mono">Mar 19</td><td><span class="badge type-internal">Internal</span></td></tr>
-                <tr><td class="ind-serial" style="font-size:13px;">2026/4018</td><td class="mono" style="color:var(--teal);">L-4018</td><td class="text-sm text-muted mono">Mar 18</td><td><span class="badge type-out">Outbound</span></td></tr>
-                <tr><td class="ind-serial" style="font-size:13px;">2026/4015</td><td class="mono" style="color:var(--teal);">L-4015</td><td class="text-sm text-muted mono">Mar 17</td><td><span class="badge type-in">Inbound</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-head"><div class="card-title">📦 Book — FY 2025 (Archived)</div><div class="card-actions"><span class="badge b-gray">● Closed</span></div></div>
-        <div class="card-body">
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
-            <div style="text-align:center;padding:13px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border);">
-              <div style="font-size:20px;font-weight:900;color:var(--text2);font-family:var(--mono);">2025</div>
-              <div class="text-sm text-muted" style="margin-top:3px;">Fiscal Year</div>
-            </div>
-            <div style="text-align:center;padding:13px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border);">
-              <div style="font-size:20px;font-weight:900;color:var(--text2);font-family:var(--mono);">8,241</div>
-              <div class="text-sm text-muted" style="margin-top:3px;">Final Number</div>
-            </div>
-            <div style="text-align:center;padding:13px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border);">
-              <div style="font-size:20px;font-weight:900;color:var(--text2);font-family:var(--mono);">8,241</div>
-              <div class="text-sm text-muted" style="margin-top:3px;">Total Letters</div>
-            </div>
-          </div>
-          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);padding:18px;text-align:center;color:var(--text2);">
-            <div style="font-size:26px;margin-bottom:8px;">🔒</div>
-            <div style="font-size:12.5px;font-weight:700;color:var(--text);">This book is sealed and archived</div>
-            <div class="text-sm text-muted" style="margin-top:4px;font-family:var(--mono);">2025/0001 → 2025/8241</div>
-            <button class="btn btn-ghost btn-sm" style="margin-top:12px;">👁 Browse Archive</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mt-16">
-      <div class="card-head"><div class="card-title">⚙ Numbering Business Rules</div></div>
       <div class="card-body">
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-          <div style="padding:14px;background:var(--green-dim);border-radius:var(--r-sm);border:1px solid rgba(16,185,129,.2);">
-            <div style="font-size:12.5px;font-weight:700;color:var(--green);margin-bottom:6px;">✅ Allowed</div>
-            <div class="text-sm" style="color:var(--text2);">Each year resets from 1. <code style="font-family:var(--mono);">2025/0001</code> and <code style="font-family:var(--mono);">2026/0001</code> can coexist — they are distinct composite keys.</div>
+
+        <div class="dept-row">
+          <label>Department</label>
+          <select class="dept-select" id="dept-2026" name="depid" [(ngModel)]="mydepid.depid">
+             @for (dept of mydept; track dept.id) {
+        <option [ngValue]="dept.id">D-{{dept.id}} · {{dept.name}}</option>
+         <span class="dept-pill" id="dept-pill-2026">DEPT-001</span>
+      }
+          </select>
+          <span class="dept-pill" id="dept-pill-2026">DEPT-001</span>
+        </div>
+
+        <div class="type-tabs" id="tabs-2026">
+          <button  class="type-tab"    [class.active]="activeTab() === 'Domestic'" (click)="loadReferrals('Domestic')">Domestic</button>
+          <button  class="type-tab"   [class.active]="activeTab() === 'imported'"  (click)="loadReferrals('imported')">imported</button>
+          <button  class="type-tab"   [class.active]="activeTab() === 'exported'"  (click)="loadReferrals('exported')">exported</button>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-cell">
+            <div class="stat-val v-year">2026</div>
+            <div class="stat-lbl">Fiscal Year</div>
           </div>
-          <div style="padding:14px;background:var(--red-dim);border-radius:var(--r-sm);border:1px solid rgba(239,68,68,.2);">
-            <div style="font-size:12.5px;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Forbidden</div>
-            <div class="text-sm" style="color:var(--text2);">Two letters with the same number in the same year. E.g., two letters bearing <code style="font-family:var(--mono);">2026/4021</code> is a constraint violation.</div>
+          <div class="stat-cell">
+            <div class="stat-val v-last" id="last-2026">{{lastnumber}}</div>
+            <div class="stat-lbl">Last Number</div>
           </div>
-          <div style="padding:14px;background:var(--amber-dim);border-radius:var(--r-sm);border:1px solid rgba(245,158,11,.2);">
-            <div style="font-size:12.5px;font-weight:700;color:var(--amber);margin-bottom:6px;">⚠ Implementation Note</div>
-            <div class="text-sm" style="color:var(--text2);">The sequence increment must be <b>atomic</b>. In concurrent environments use a DB Sequence or row-level lock to prevent race conditions.</div>
+          <div class="stat-cell">
+            <div class="stat-val v-next" id="next-2026">{{nextnumber}}</div>
+            <div class="stat-lbl">Next Available</div>
           </div>
+        </div>
+
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>LetterNo</th>
+                <th>LetterID</th>
+                <th>Date</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-2026">
+              <tr *ngFor="let item of myletter">
+                <td>
+                  {{item.letterNo}}
+                </td>
+                <td>
+                  {{item.id}}
+                </td>
+                <td>
+                  {{item.createdDate}}
+                </td>
+                <td>
+                  {{item.type}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FY 2025 Archived -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">📦 Book — FY 2025 (Archived)</div>
+        <span class="badge b-gray">● Closed</span>
+      </div>
+      <div class="card-body">
+
+        <div class="dept-row">
+          <label>Department</label>
+          <select class="dept-select" id="dept-2025" onchange="onDeptChange('2025')">
+            <option value="001">DEPT-001 — Finance</option>
+            <option value="002">DEPT-002 — Legal</option>
+            <option value="003">DEPT-003 — HR</option>
+            <option value="004">DEPT-004 — Engineering</option>
+          </select>
+          <span class="dept-pill" id="dept-pill-2025">DEPT-001</span>
+        </div>
+
+        <div class="type-tabs" id="tabs-2025">
+          <button class="type-tab active" onclick="switchTab('2025','incoming',this)">Incoming</button>
+          <button class="type-tab"        onclick="switchTab('2025','outgoing',this)">Outgoing</button>
+          <button class="type-tab"        onclick="switchTab('2025','internal',this)">Internal</button>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-cell">
+            <div class="stat-val v-arch">2025</div>
+            <div class="stat-lbl">Fiscal Year</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-val v-arch" id="final-2025">8,241</div>
+            <div class="stat-lbl">Final Number</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-val v-arch" id="total-2025">8,241</div>
+            <div class="stat-lbl">Total Letters</div>
+          </div>
+        </div>
+
+        <div class="sealed">
+          <div class="sealed-icon">🔒</div>
+          <div class="sealed-title">This book is sealed and archived</div>
+          <div class="sealed-range" id="range-2025">2025/Incoming/0001 → 2025/Incoming/8241</div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:14px;" onclick="alert('Open archive browser')">
+            👁 Browse Archive
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Business Rules -->
+  <div class="card mt-18">
+    <div class="card-head">
+      <div class="card-title">⚙ Numbering Business Rules</div>
+    </div>
+    <div class="card-body">
+      <div class="rules-grid">
+        <div class="rule-cell rule-ok">
+          <div class="rule-lbl rl-ok">✅ Allowed</div>
+          <p>Each year + type resets from 1. <code>2025/Incoming/0001</code> and <code>2026/Incoming/0001</code> can coexist — they are distinct composite keys.</p>
+        </div>
+        <div class="rule-cell rule-no">
+          <div class="rule-lbl rl-no">❌ Forbidden</div>
+          <p>Two letters of the same type bearing the same number in the same year. E.g., two letters <code>2026/Outgoing/0041</code> is a constraint violation.</p>
+        </div>
+        <div class="rule-cell rule-wrn">
+          <div class="rule-lbl rl-wn">⚠ Implementation Note</div>
+          <p>Sequence increment must be <b style="color:var(--text)">atomic</b>. Use a DB Sequence or <code>RowVersion</code> optimistic concurrency to prevent race conditions in concurrent environments.</p>
         </div>
       </div>
     </div>
+  </div>

@@ -31,4 +31,15 @@ export class ReferralService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpclient.post<ReferralModel[]>(this.baseurl+'getbytyperecvierid/'+ reciverid,JSON.stringify(type),{headers});
   }
+
+  getAllbySenderposition(id: number): Observable<ReferralModel[]>
+  {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpclient.get<ReferralModel[]>(this.baseurl+'getAllbySenderposition/'+id,{headers});
+  }
+  getReferralbyTypeSenderid(senderid: number,type: Typeenum): Observable<ReferralModel[]>
+  {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpclient.post<ReferralModel[]>(this.baseurl+'getReferralbyTypeSenderid/'+senderid,JSON.stringify(type),{headers});
+  }
 }

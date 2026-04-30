@@ -11,6 +11,7 @@ import { Indicator } from './indicator/indicator';
 import { Dashboard } from './dashboard/dashboard';
 import { loginGuardGuard } from './gaurd/loginGuard-guard';
 import { Approve } from './approve/approve';
+import { Senderletter } from './senderletter/senderletter';
 export const routes: Routes = [
     { 
         path: '', 
@@ -34,7 +35,8 @@ export const routes: Routes = [
       { path: 'newletter',   component: Composeletter },
       { path: 'attachments', component: Attachment },
       { path: 'indicator',   component: Indicator },
-      { path: 'dashboard',   component: Dashboard }
+      { path: 'dashboard',   component: Dashboard },
+      {path: 'senderletter', component: Senderletter}
     ]
   },
   {
