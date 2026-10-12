@@ -1,0 +1,90 @@
+<!-- ════════════════════════════
+       PAGE: EDIT POSITION / ROLE
+  ════════════════════════════ -->
+<div class="page active" style="padding-top: 20px;">
+  <div class="pg-head">
+    <div>
+      <a class="back-link" routerLink="/mainpage/positions">← Back to Roles &amp; Positions</a>
+      <div class="pg-title">Edit Position</div>
+      <div class="pg-sub">Entity: Position — PositionID <span class="mono">P-{{ id }}</span></div>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="card"><div class="card-body text-muted">Loading position…</div></div>
+  } @else if (notFound) {
+    <div class="card">
+      <div class="card-body">
+        <div class="fw7" style="margin-bottom:6px;">Position P-{{ id }} was not found.</div>
+        <a class="btn btn-ghost btn-sm" routerLink="/mainpage/positions">Back to Roles &amp; Positions</a>
+      </div>
+    </div>
+  } @else {
+    <div class="edit-layout">
+      <!-- Summary card: current values -->
+      <div class="card summary">
+        <div class="card-head"><div class="card-title">Current</div></div>
+        <div class="card-body">
+          <div class="fw7" style="margin-bottom:10px;">{{ original?.title }}</div>
+          <div class="summary-row">
+            <span class="text-muted text-sm">Department</span>
+            <span class="badge b-blue">{{ original?.depID?.name || '—' }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="text-muted text-sm">Holder</span>
+            @if (original?.userID?.id) {
+              <span class="badge b-purple">U-{{ original?.userID?.id }} · {{ original?.userID?.username }}</span>
+            } @else {
+              <span class="badge b-gray">Vacant</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit form -->
+      <div class="card">
+        <div class="card-head"><div class="card-title">🎖 Position Details</div></div>
+        <div class="card-body">
+          <form (ngSubmit)="onSave()">
+            <div class="form-grp">
+              <label class="form-lbl">Title (Job Title) <span class="req">*</span></label>
+              <input type="text" class="form-inp" name="Title" [(ngModel)]="form.Title"
+                     placeholder="e.g. Senior Financial Manager" />
+            </div>
+
+            <div class="form-grp">
+              <label class="form-lbl">DeptID (Department) <span class="req">*</span></label>
+              <select class="form-sel" name="departmentId" [(ngModel)]="form.departmentId">
+                <option [ngValue]="null" disabled>Select a department…</option>
+                @for (dept of departments; track dept.id) {
+                  <option [ngValue]="dept.id">D-{{ dept.id }} · {{ dept.name }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="form-grp">
+              <label class="form-lbl">UserID (Current Holder)</label>
+              <select class="form-sel" name="userId" [(ngModel)]="form.userId">
+                <option [ngValue]="null">— Vacant (no holder) —</option>
+                @for (user of availableUsers; track user.id) {
+                  <option [ngValue]="user.id">U-{{ user.id }} · {{ user.username }}</option>
+                }
+              </select>
+              <div class="form-hint">💡 Only users without a position are listed, plus the current holder. Choose “Vacant” to free the position.</div>
+            </div>
+
+            @if (errorMsg) { <div class="alert alert-err">{{ errorMsg }}</div> }
+            @if (successMsg) { <div class="alert alert-ok">✓ {{ successMsg }}</div> }
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-ghost" (click)="cancel()">Cancel</button>
+              <button type="submit" class="btn btn-primary" [disabled]="saving">
+                {{ saving ? 'Saving…' : '💾 Save Changes' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  }
+</div>

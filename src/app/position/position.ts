@@ -9,10 +9,11 @@ import { FormsModule } from '@angular/forms';
 import { GetuserModel } from '../Model/getuserModel';
 import { UserService } from '../Services/userService';
 import { UserModel } from '../Model/userModel';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-position',
-  imports: [CommonModule, Newposition,FormsModule],
+  imports: [CommonModule, Newposition,FormsModule, RouterLink],
   templateUrl: './position.html',
   styleUrl: './position.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

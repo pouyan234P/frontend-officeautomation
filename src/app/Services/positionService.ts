@@ -20,6 +20,12 @@ export class PositionService {
     const headers=new HttpHeaders({'Content-Type': 'application/json'});
     return this.httpclient.post(this.baseurl+ 'insertPosition',model,{headers});
   }
+  // Edit an existing position. Backend must expose: PUT api/position/updatePosition/{id}
+  updatePosition(id: number, model: any)
+  {
+    const headers=new HttpHeaders({'Content-Type': 'application/json'});
+    return this.httpclient.put(this.baseurl+ 'updatePosition/'+ id, model, {headers});
+  }
   getposanddep():Observable<GetPosition>
   {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

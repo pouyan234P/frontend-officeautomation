@@ -203,3 +203,22 @@ tbody tr:hover td{background:var(--surface2);}
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
+
+/* ── Edit pages (Edit User / Edit Position) ── */
+.back-link{display:inline-block;font-size:12px;color:var(--text2);text-decoration:none;margin-bottom:6px;}
+.back-link:hover{color:var(--accent);}
+.inline-link{color:var(--accent);text-decoration:none;}
+.inline-link:hover{text-decoration:underline;}
+.edit-layout{display:grid;grid-template-columns:280px 1fr;gap:16px;align-items:start;}
+@media (max-width:900px){.edit-layout{grid-template-columns:1fr;}}
+.summary-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.summary-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-top:1px solid var(--border);}
+.av-lg{width:44px;height:44px;font-size:15px;}
+.section-lbl{font-size:12px;font-weight:700;color:var(--text);margin:18px 0 10px;padding-top:14px;border-top:1px solid var(--border);}
+.radio-lbl{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;}
+.sign-box{border:2px dashed var(--border2);border-radius:8px;padding:20px;text-align:center;}
+.sign-img{max-width:100%;max-height:110px;object-fit:contain;border-radius:4px;background:#fff;}
+.alert{padding:10px 14px;border-radius:var(--r-sm);font-size:12.5px;margin-top:14px;}
+.alert-err{background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,.25);}
+.alert-ok{background:var(--green-dim);color:var(--green);border:1px solid rgba(16,185,129,.25);}
+.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px;}

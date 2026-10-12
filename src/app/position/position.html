@@ -91,19 +91,17 @@
                 </span>
               </td>
               <td>
-                <div class="flex gap-8">
-                  <div class="av av-b">
-                    JM
+                @if (pos.userID) {
+                  <div class="flex gap-8">
+                    <div class="av av-b">JM</div>
+                    <span class="mono" style="color:var(--teal);">{{pos.userID.id}}</span>
+                    <span class="text-sm">{{pos.userID.username}}</span>
                   </div>
-                  <span class="mono" style="color:var(--teal);">
-                    {{pos.userID.id}}
-                  </span>
-                     <span class="text-sm">
-                      {{pos.userID.username}}
-                    </span>
-                  </div>
+                } @else {
+                  <span class="badge b-gray">Vacant</span>
+                }
                 </td>
-              <td><button class="btn btn-ghost btn-sm">Edit</button></td>
+              <td><a class="btn btn-ghost btn-sm" [routerLink]="['/mainpage/positions/edit', pos.id]">Edit</a></td>
             </tr>
           </tbody>
         </table>

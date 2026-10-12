@@ -228,7 +228,7 @@
                 </span>
               </td>
               <td class="flex gap-8">
-                <button class="btn btn-ghost btn-sm" onclick="openModal('modal-user')">Edit</button>
+                <a class="btn btn-ghost btn-sm" [routerLink]="['/mainpage/users/edit', user.id]">Edit</a>
                 <button class="btn btn-ghost btn-sm">Signature</button>
               </td>
             </tr>

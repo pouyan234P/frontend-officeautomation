@@ -7,10 +7,11 @@ import { HttpResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { PictureService } from '../Services/pictureService';
 import { authservice } from '../Services/authservice';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-userpage',
-  imports: [CommonModule, Newuser,FormsModule],
+  imports: [CommonModule, Newuser,FormsModule, RouterLink],
   templateUrl: './userpage.html',
   styleUrl: './userpage.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

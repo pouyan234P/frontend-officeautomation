@@ -12,6 +12,8 @@ import { Dashboard } from './dashboard/dashboard';
 import { loginGuardGuard } from './gaurd/loginGuard-guard';
 import { Approve } from './approve/approve';
 import { Senderletter } from './senderletter/senderletter';
+import { Edituser } from './edituser/edituser';
+import { Editposition } from './editposition/editposition';
 export const routes: Routes = [
     { 
         path: '', 
@@ -29,8 +31,10 @@ export const routes: Routes = [
     children: [                 // ← these load inside <router-outlet>
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'users',       component: Userpage },
+      { path: 'users/edit/:id',     component: Edituser },
       { path: 'orgchart',    component: Orgchart },
       { path: 'positions',   component: Position },
+      { path: 'positions/edit/:id', component: Editposition },
       { path: 'letters',     component: Letter },
       { path: 'newletter',   component: Composeletter },
       { path: 'attachments', component: Attachment },
