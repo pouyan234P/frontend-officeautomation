@@ -28,7 +28,7 @@ export class Editposition implements OnInit {
   form = {
     Title: '',
     departmentId: null as number | null,
-    userId: null as number | null, // null = vacant
+    userId: null as number | null,
   };
 
   loading = true;
@@ -101,10 +101,13 @@ export class Editposition implements OnInit {
       this.errorMsg = 'Please choose a department.';
       return;
     }
+    if (this.form.userId === null) {
+      this.errorMsg = 'Please choose the user who holds this position.';
+      return;
+    }
 
-    // Same field names as the "New Position" form uses for insertPosition.
+    // Same field names as the "New Position" form uses for insertPosition (setPosition DTO).
     const payload = {
-      id: Number(this.id),
       Title: this.form.Title.trim(),
       departmentId: this.form.departmentId,
       userId: this.form.userId,
@@ -121,10 +124,18 @@ export class Editposition implements OnInit {
       error: (err) => {
         console.error(err);
         this.saving = false;
-        this.errorMsg = 'Saving failed: ' + (err?.error?.message || err?.statusText || 'unknown error');
+        this.errorMsg = 'Saving failed: ' + this.describeError(err);
         this.cdr.markForCheck();
       },
     });
+  }
+
+  /** The API returns a list of messages on 400 Bad Request. */
+  private describeError(err: any): string {
+    const body = err?.error;
+    if (Array.isArray(body) && body.length) return body.join(' ');
+    if (typeof body === 'string' && body) return body;
+    return body?.message || err?.statusText || 'unknown error';
   }
 
   cancel(): void {

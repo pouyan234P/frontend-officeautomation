@@ -63,14 +63,14 @@
             </div>
 
             <div class="form-grp">
-              <label class="form-lbl">UserID (Current Holder)</label>
+              <label class="form-lbl">UserID (Current Holder) <span class="req">*</span></label>
               <select class="form-sel" name="userId" [(ngModel)]="form.userId">
-                <option [ngValue]="null">— Vacant (no holder) —</option>
+                <option [ngValue]="null" disabled>Select a user…</option>
                 @for (user of availableUsers; track user.id) {
                   <option [ngValue]="user.id">U-{{ user.id }} · {{ user.username }}</option>
                 }
               </select>
-              <div class="form-hint">💡 Only users without a position are listed, plus the current holder. Choose “Vacant” to free the position.</div>
+              <div class="form-hint">💡 Only users without a position are listed, plus the current holder.</div>
             </div>
 
             @if (errorMsg) { <div class="alert alert-err">{{ errorMsg }}</div> }

@@ -27,6 +27,9 @@ export class Edituser implements OnInit {
     signitureimageid: '',
   };
 
+  /** Id of a newly uploaded signature image; null = keep the current signature. */
+  newSignatureId: number | null = null;
+
   loading = true;
   notFound = false;
   saving = false;
@@ -118,7 +121,9 @@ export class Edituser implements OnInit {
     this.isUploading = true;
     this.pictureservice.addPicture(this.selectedFile).subscribe({
       next: (response) => {
-        this.form.signitureimageid = response;
+        // addPicture returns the saved image ({ id, fileName, contentType })
+        this.newSignatureId = response?.id ?? null;
+        this.form.signitureimageid = 'uploaded';
         this.uploadStatus = 'Signature uploaded — it will be applied when you save.';
         this.isUploading = false;
         this.cdr.markForCheck();
@@ -153,15 +158,15 @@ export class Edituser implements OnInit {
       return;
     }
 
-    const payload: any = {
-      id: Number(this.id),
+    // Matches updateUserDTO in the webapi project.
+    const payload = {
       username: this.form.username.trim(),
       personID: this.form.personID,
       currentStatus: this.form.currentStatus,
-      signitureimageid: this.form.signitureimageid,
+      // null = keep the current password / signature
+      password: this.form.newPassword || null,
+      signitureImageId: this.newSignatureId,
     };
-    // Only send a password when the admin actually typed a new one.
-    if (this.form.newPassword) payload.password = this.form.newPassword;
 
     this.saving = true;
     this.userservice.updateUser(Number(this.id), payload).subscribe({
@@ -174,10 +179,18 @@ export class Edituser implements OnInit {
       error: (err) => {
         console.error(err);
         this.saving = false;
-        this.errorMsg = 'Saving failed: ' + (err?.error?.message || err?.statusText || 'unknown error');
+        this.errorMsg = 'Saving failed: ' + this.describeError(err);
         this.cdr.markForCheck();
       },
     });
+  }
+
+  /** The API returns a list of messages on 400 Bad Request. */
+  private describeError(err: any): string {
+    const body = err?.error;
+    if (Array.isArray(body) && body.length) return body.join(' ');
+    if (typeof body === 'string' && body) return body;
+    return body?.message || err?.statusText || 'unknown error';
   }
 
   cancel(): void {
