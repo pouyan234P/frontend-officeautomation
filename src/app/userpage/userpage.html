@@ -12,7 +12,9 @@
           <a class="btn btn-ghost" routerLink="/mainpage/roles" title="See all roles">🛡 Roles</a>
           <a class="btn btn-ghost" routerLink="/mainpage/roles" [queryParams]="{ create: 1 }" title="Create a new role">+ New Role</a>
         }
-        <button class="btn btn-primary" (click)="openModal()">+ New User</button>
+        @if (isAdmin) {
+          <button class="btn btn-primary" (click)="openModal()">+ New User</button>
+        }
       </div>
     </div>
     @if (listMessage) {
@@ -270,11 +272,15 @@
                 }
               </td>
               <td class="flex gap-8">
-                <a class="btn btn-ghost btn-sm" [routerLink]="['/mainpage/users/edit', user.id]">Edit</a>
+                @if (isAdmin || user.id === myId) {
+                  <a class="btn btn-ghost btn-sm" [routerLink]="['/mainpage/users/edit', user.id]">{{ user.id === myId ? 'Edit my account' : 'Edit' }}</a>
+                }
                 @if (isAdmin) {
                   <button type="button" class="btn btn-ghost btn-sm" (click)="openRoles(user)">🛡 Role</button>
                 }
-                <a class="btn btn-ghost btn-sm" [routerLink]="['/mainpage/users/edit', user.id]">Signature</a>
+                @if (isAdmin || user.id === myId) {
+                  <a class="btn btn-ghost btn-sm" [routerLink]="['/mainpage/users/edit', user.id]">Signature</a>
+                }
               </td>
             </tr>
           </tbody>

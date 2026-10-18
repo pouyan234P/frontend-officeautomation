@@ -78,6 +78,18 @@ export class authservice {
     return this.hasRole('Admin');
   }
 
+  /** The signed-in user's id (from the token), or null. */
+  userId(): number | null {
+    const token = this.getToken();
+    const id = token ? Number(this.claims(token)?.nameid) : NaN;
+    return Number.isFinite(id) ? id : null;
+  }
+
+  /** Admins can edit anyone; everyone else only their own account. */
+  canEditUser(id: number | string): boolean {
+    return this.isAdmin() || this.userId() === Number(id);
+  }
+
   userName(): string {
     const token = this.getToken();
     return (token && this.claims(token)?.unique_name) || '';

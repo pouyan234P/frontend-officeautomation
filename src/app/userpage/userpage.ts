@@ -39,9 +39,11 @@ export class Userpage implements OnInit {
 
   /** Only admins may create roles or put people in roles (the API enforces this too). */
   isAdmin = false;
+  myId: number | null = null;
 
   ngOnInit(): void {
     this.isAdmin = this.myauthservice.isAdmin();
+    this.myId = this.myauthservice.userId();
     this.loaduser();
     if (this.isAdmin) this.loadRoles();
   }
@@ -110,6 +112,7 @@ export class Userpage implements OnInit {
 
   isModalOpen = false;
   openModal() {
+    if (!this.isAdmin) return; // only admins create users
     this.saveError = '';
     this.isModalOpen = true;
   }

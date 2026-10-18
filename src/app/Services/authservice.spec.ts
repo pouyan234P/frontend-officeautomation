@@ -75,6 +75,17 @@ describe('authservice', () => {
     expect(auth.isLoggedIn()).toBe(false);
   });
 
+  it('lets admins edit anyone and others only themselves', () => {
+    cookies.set('auth', fakeToken({ nameid: '5', role: 'Customer', exp: inOneHour() }), { path: '/' });
+    expect(auth.userId()).toBe(5);
+    expect(auth.canEditUser(5)).toBe(true);
+    expect(auth.canEditUser('5')).toBe(true);
+    expect(auth.canEditUser(6)).toBe(false);
+
+    cookies.set('auth', fakeToken({ nameid: '1', role: 'Admin', exp: inOneHour() }), { path: '/' });
+    expect(auth.canEditUser(6)).toBe(true);
+  });
+
   it('logout clears the session cookies', () => {
     cookies.set('auth', fakeToken({ nameid: '1', exp: inOneHour() }), { path: '/' });
     cookies.set('id', '1', { path: '/' });

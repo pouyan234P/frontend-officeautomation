@@ -5,6 +5,8 @@ import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../Services/userService';
 import { PictureService } from '../Services/pictureService';
 import { UserModel } from '../Model/userModel';
+import { authservice } from '../Services/authservice';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-edituser',
@@ -16,6 +18,9 @@ import { UserModel } from '../Model/userModel';
 export class Edituser implements OnInit {
   /** Bound from the route parameter /mainpage/users/edit/:id (withComponentInputBinding). */
   @Input() id!: string;
+
+  /** PersonID and Active/Inactive can only be changed by an admin (the API ignores them otherwise). */
+  isAdmin = inject(authservice).isAdmin();
 
   original: UserModel | null = null;
   form = {

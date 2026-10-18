@@ -16,6 +16,7 @@ import { Edituser } from './edituser/edituser';
 import { Editposition } from './editposition/editposition';
 import { Roles } from './roles/roles';
 import { adminGuard } from './gaurd/adminGuard-guard';
+import { selfOrAdminGuard } from './gaurd/selfOrAdminGuard-guard';
 export const routes: Routes = [
     { 
         path: '', 
@@ -33,7 +34,8 @@ export const routes: Routes = [
     children: [                 // ← these load inside <router-outlet>
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'users',       component: Userpage },
-      { path: 'users/edit/:id',     component: Edituser },
+      // admins edit anyone; everyone else only their own account (the API enforces this too)
+      { path: 'users/edit/:id',     component: Edituser, canActivate: [selfOrAdminGuard] },
       // creating roles / assigning roles and positions is Admin-only (the API enforces this too)
       { path: 'roles',       component: Roles, canActivate: [adminGuard] },
       { path: 'orgchart',    component: Orgchart },
