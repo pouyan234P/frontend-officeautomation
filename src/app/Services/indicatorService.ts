@@ -1,3 +1,4 @@
+import { API_BASE } from '../api.config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Typeenum } from '../Model/enumletter/Typeenum';
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class IndicatorService {
-private baseurl = 'http://localhost:5295/api/Indicator/'; // Replace with your actual server URL
+private baseurl = API_BASE + 'Indicator/'; // Replace with your actual server URL
   constructor(private httpclient:HttpClient) 
   {
 

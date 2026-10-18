@@ -6,4 +6,5 @@ export interface UserModel
     currentStatus: boolean;
     signitureimageid: string;
     title: string;
+    roles: string[];
 }

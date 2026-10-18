@@ -14,6 +14,8 @@ import { Approve } from './approve/approve';
 import { Senderletter } from './senderletter/senderletter';
 import { Edituser } from './edituser/edituser';
 import { Editposition } from './editposition/editposition';
+import { Roles } from './roles/roles';
+import { adminGuard } from './gaurd/adminGuard-guard';
 export const routes: Routes = [
     { 
         path: '', 
@@ -30,11 +32,13 @@ export const routes: Routes = [
     canActivate: [loginGuardGuard],       // ← shell with sidebar
     children: [                 // ← these load inside <router-outlet>
       { path: '', redirectTo: 'users', pathMatch: 'full' },
-      { path: 'users',       component: Userpage },
-      { path: 'users/edit/:id',     component: Edituser },
+      // admin-only management pages (the API enforces this too)
+      { path: 'users',       component: Userpage, canActivate: [adminGuard] },
+      { path: 'users/edit/:id',     component: Edituser, canActivate: [adminGuard] },
+      { path: 'roles',       component: Roles, canActivate: [adminGuard] },
       { path: 'orgchart',    component: Orgchart },
-      { path: 'positions',   component: Position },
-      { path: 'positions/edit/:id', component: Editposition },
+      { path: 'positions',   component: Position, canActivate: [adminGuard] },
+      { path: 'positions/edit/:id', component: Editposition, canActivate: [adminGuard] },
       { path: 'letters',     component: Letter },
       { path: 'newletter',   component: Composeletter },
       { path: 'attachments', component: Attachment },
@@ -46,5 +50,6 @@ export const routes: Routes = [
   {
     path: 'approved',
     component: Approve
-  }
+  },
+  { path: '**', redirectTo: 'Login' }
 ];

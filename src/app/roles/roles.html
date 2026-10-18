@@ -1,0 +1,110 @@
+<!-- ════════════════════════════
+       PAGE: ROLES
+  ════════════════════════════ -->
+<div class="page active" style="padding-top: 20px;">
+  <div class="pg-head">
+    <div>
+      <a class="back-link" routerLink="/mainpage/users">← Back to Users</a>
+      <div class="pg-title">Role Management</div>
+      <div class="pg-sub">Entity: Role — RoleID, Name · Roles decide what each user can do</div>
+    </div>
+  </div>
+
+  <div class="roles-layout">
+    <!-- New role -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">🛡 New Role</div>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="onCreate()" autocomplete="off">
+          <div class="form-grp">
+            <label class="form-lbl" for="role-name">Role name <span class="req">*</span></label>
+            <input
+              #nameInput
+              id="role-name"
+              type="text"
+              class="form-inp"
+              name="name"
+              maxlength="50"
+              [(ngModel)]="newName"
+              placeholder="e.g. Manager, Secretary, Archivist"
+            />
+            @if (nameProblem) {
+              <div class="form-hint hint-warn">{{ nameProblem }}</div>
+            } @else {
+              <div class="form-hint">Starts with a letter · letters, digits, spaces, - and _ · up to 50 characters</div>
+            }
+          </div>
+
+          @if (errorMsg) {
+            <div class="alert alert-err">{{ errorMsg }}</div>
+          }
+          @if (successMsg) {
+            <div class="alert alert-ok">{{ successMsg }}</div>
+          }
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" [disabled]="saving || !newName.trim() || !!nameProblem">
+              {{ saving ? 'Creating…' : '+ Create Role' }}
+            </button>
+          </div>
+        </form>
+
+        <div class="role-note">
+          <div class="fw7">Built-in roles</div>
+          <div><span class="badge b-purple">Admin</span> manages users, roles, positions and departments.</div>
+          <div><span class="badge b-gray">Customer</span> is the default for new users.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Role list -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">All Roles</div>
+        <div class="card-sub">· {{ roles.length }} roles · {{ totalAssignments }} assignments</div>
+        <div class="card-actions">
+          <button type="button" class="btn btn-ghost btn-sm" (click)="loadRoles()" [disabled]="loading">↻ Refresh</button>
+        </div>
+      </div>
+
+      @if (loading) {
+        <div class="card-body text-muted">Loading roles…</div>
+      } @else if (loadError) {
+        <div class="card-body"><div class="alert alert-err">{{ loadError }}</div></div>
+      } @else if (roles.length === 0) {
+        <div class="card-body text-muted">No roles yet — create the first one on the left.</div>
+      } @else {
+        <div class="tbl">
+          <table>
+            <thead>
+              <tr>
+                <th>🛡 Role</th>
+                <th>🔑 RoleID</th>
+                <th>👤 Users</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (role of roles; track role.id) {
+                <tr>
+                  <td><span class="badge" [ngClass]="badgeClass(role)">{{ role.name }}</span></td>
+                  <td><span class="mono" style="color:var(--teal);">R-{{ role.id }}</span></td>
+                  <td>{{ role.userCount }}</td>
+                  <td>
+                    @if (isBuiltIn(role)) {
+                      <span class="badge b-gray">Built-in</span>
+                    } @else {
+                      <span class="badge b-teal">Custom</span>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  </div>
+</div>

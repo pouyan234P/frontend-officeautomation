@@ -1,1 +1,55 @@
 
+
+.head-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.list-msg {
+  margin: 0 0 16px;
+}
+
+.role-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.role-picks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.role-pick {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+
+.role-pick:hover {
+  background: var(--surface2);
+}
+
+.inline-link {
+  color: var(--accent);
+  text-decoration: none;
+}
+.inline-link:hover { text-decoration: underline; }
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}

@@ -1,3 +1,4 @@
+import { API_BASE } from '../api.config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -8,7 +9,7 @@ import { GetDepartmentModel } from '../Model/getDepartmentModel';
 })
 export class DepartmentService {
 private http = inject(HttpClient);
-private baseurl = 'http://localhost:5295/api/department/';
+private baseurl = API_BASE + 'department/';
   constructor(private httpclient:HttpClient) { }
 
   getDepartment(): Observable<GetDepartmentModel[]>

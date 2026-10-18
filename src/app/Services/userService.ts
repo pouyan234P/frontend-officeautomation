@@ -1,3 +1,4 @@
+import { API_BASE } from '../api.config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserModel } from '../Model/userModel';
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  baseurl="http://localhost:5295/api/user/";
+  baseurl=API_BASE + 'user/';
   constructor(private httpclient:HttpClient) { }
 
   getAll(): Observable<UserModel[]> {

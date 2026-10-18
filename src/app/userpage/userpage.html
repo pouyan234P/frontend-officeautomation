@@ -7,8 +7,15 @@
         <div class="pg-title">User Management</div>
         <div class="pg-sub">Entity: User — Fields: UserID, Username, PasswordHash, PersonID, DigitalSignature, CurrentStatus</div>
       </div>
-      <button class="btn btn-primary" (click)="openModal()">+ New User</button>
+      <div class="head-actions">
+        <a class="btn btn-ghost" routerLink="/mainpage/roles" title="See all roles">🛡 Roles</a>
+        <a class="btn btn-ghost" routerLink="/mainpage/roles" [queryParams]="{ create: 1 }" title="Create a new role">+ New Role</a>
+        <button class="btn btn-primary" (click)="openModal()">+ New User</button>
+      </div>
     </div>
+    @if (listMessage) {
+      <div class="alert alert-ok list-msg">{{ listMessage }}</div>
+    }
     <app--newuser
   title="👤 New / Edit User — Entity: User"
   [isOpen]="isModalOpen"
@@ -36,8 +43,8 @@
     </div>
     <div class="form-grp">
       <label class="form-lbl">Password <span class="req">*</span></label>
-      <input type="password" class="form-inp" name="password" [(ngModel)]="newuser.password" placeholder="Stored as BCrypt hash"/>
-      <div class="form-hint">🔐 Password is hashed before storage (PasswordHash)</div>
+      <input type="password" class="form-inp" name="password" [(ngModel)]="newuser.password" placeholder="At least 8 characters" autocomplete="new-password"/>
+      <div class="form-hint">🔐 8+ characters with upper- and lower-case letters, a digit and a symbol. Stored only as a hash.</div>
     </div>
     <div class="form-grp">
     <label class="form-lbl">Country <span class="req">*</span></label>
@@ -45,7 +52,7 @@
   </div>
   <div class="form-grp">
     <label class="form-lbl">Phone number <span class="req">*</span></label>
-    <input type="number" class="form-inp" name="phoneNumber" [(ngModel)]="newuser.phoneNumber" placeholder="Your phoneNumber"/>
+    <input type="tel" class="form-inp" name="phoneNumber" [(ngModel)]="newuser.phoneNumber" placeholder="+989121234567" autocomplete="off"/>
   </div>
   </div>
   
@@ -55,6 +62,20 @@
     <label class="form-lbl">PersonID (Identity Reference) <span class="req">*</span></label>
     <input type="number" class="form-inp" name="personID" [(ngModel)]="newuser.personID" placeholder="e.g. P-00912 or SSN / Employee ID…"/>
     <div class="form-hint">🔗 Links to the identity / person record table</div>
+  </div>
+
+  <!-- Role -->
+  <div class="form-grp">
+    <label class="form-lbl">Role <span class="req">*</span></label>
+    <select class="form-sel" name="role" [(ngModel)]="newuser.role">
+      @if (roles.length === 0) {
+        <option value="Customer">Customer</option>
+      }
+      @for (role of roles; track role.id) {
+        <option [value]="role.name">{{ role.name }}</option>
+      }
+    </select>
+    <div class="form-hint">🛡 Need another role? <a routerLink="/mainpage/roles" [queryParams]="{ create: 1 }" (click)="closeModal()" class="inline-link">Create one</a></div>
   </div>
 
   <!-- Status -->
@@ -140,11 +161,15 @@
     </div>
   </div>-->
 
+  @if (saveError) {
+    <div class="alert alert-err">{{ saveError }}</div>
+  }
+
   <!-- Footer -->
   <div class="modal-footer">
-    <button type="submit" class="btn btn-primary">💾 Save User</button>
+    <button type="submit" class="btn btn-primary" [disabled]="saving">{{ saving ? 'Saving…' : '💾 Save User' }}</button>
     
-    <button class="btn btn-ghost" (click)="closeModal()">Cancel</button>
+    <button type="button" class="btn btn-ghost" (click)="closeModal()">Cancel</button>
   </div>
 </form>
 </app--newuser>
@@ -164,11 +189,10 @@
     <div class="card">
       <div class="card-head">
         <div class="card-title">All Users</div>
-        <div class="card-sub">· {{myuser.length}}</div>
+        <div class="card-sub">· {{filteredUsers.length}} of {{myuser.length}}</div>
         <div class="card-actions">
-          <button class="btn btn-ghost btn-sm">Filter</button>
-          <select class="form-sel" style="width:auto;padding:4px 10px;font-size:11.5px;">
-            <option>All Statuses</option><option>Active</option><option>Inactive</option>
+          <select class="form-sel" style="width:auto;padding:4px 10px;font-size:11.5px;" name="statusFilter" [(ngModel)]="statusFilter">
+            <option value="all">All Statuses</option><option value="active">Active</option><option value="inactive">Inactive</option>
           </select>
         </div>
       </div>
@@ -180,16 +204,17 @@
               <th>🔗 PersonID</th>
               <th>✍ Digital Signature</th>
               <th>⚡ Status</th>
+              <th>🛡 Roles</th>
               <th>Positions Held</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of myuser">
+            <tr *ngFor="let user of filteredUsers">
               <td>
                 <div class="flex gap-8">
                   <div class="av av-b">
-                    JM</div>
+                    {{initials(user)}}</div>
                      {{user.username}}</div>
               </td>
               <td>
@@ -223,17 +248,61 @@
                 }
               </td>
               <td>
-                <span class="badge b-blue">
-                  {{user.title}}
-                </span>
+                <div class="role-badges">
+                  @for (role of user.roles; track role) {
+                    <span class="badge" [ngClass]="roleBadge(role)">{{role}}</span>
+                  } @empty {
+                    <span class="badge b-amber">No role</span>
+                  }
+                </div>
+              </td>
+              <td>
+                @if (user.title) {
+                  <span class="badge b-blue">{{user.title}}</span>
+                } @else {
+                  <span class="text-muted text-sm">—</span>
+                }
               </td>
               <td class="flex gap-8">
                 <a class="btn btn-ghost btn-sm" [routerLink]="['/mainpage/users/edit', user.id]">Edit</a>
-                <button class="btn btn-ghost btn-sm">Signature</button>
+                <button type="button" class="btn btn-ghost btn-sm" (click)="openRoles(user)">🛡 Role</button>
+                <a class="btn btn-ghost btn-sm" [routerLink]="['/mainpage/users/edit', user.id]">Signature</a>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-  </div>
+  
+  <!-- Assign roles to one user -->
+  <app--newuser
+    [title]="'🛡 Roles — ' + (roleUser?.username ?? '')"
+    [isOpen]="!!roleUser"
+    (closed)="closeRoles()">
+    <div class="form-hint" style="margin-bottom:12px;">
+      Tick every role this user should have. Changes apply the next time they sign in.
+    </div>
+    @if (roles.length === 0) {
+      <div class="text-muted">No roles available.</div>
+    }
+    <div class="role-picks">
+      @for (role of roles; track role.id) {
+        <label class="role-pick">
+          <input type="checkbox" [name]="'role-' + role.id" [(ngModel)]="roleSelection[role.name]" />
+          <span class="badge" [ngClass]="roleBadge(role.name)">{{role.name}}</span>
+          <span class="text-muted text-sm">{{role.userCount}} user(s)</span>
+        </label>
+      }
+    </div>
+    <div class="form-hint" style="margin-top:10px;">
+      Missing a role? <a routerLink="/mainpage/roles" [queryParams]="{ create: 1 }" class="inline-link">Create a new role</a>
+    </div>
+    @if (roleError) {
+      <div class="alert alert-err">{{ roleError }}</div>
+    }
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="saveRoles()" [disabled]="roleSaving">{{ roleSaving ? 'Saving…' : '💾 Save Roles' }}</button>
+      <button type="button" class="btn btn-ghost" (click)="closeRoles()">Cancel</button>
+    </div>
+  </app--newuser>
+</div>

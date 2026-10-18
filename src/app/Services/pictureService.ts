@@ -1,3 +1,4 @@
+import { API_BASE } from '../api.config';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -5,7 +6,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class PictureService {
-  baseurl="http://192.168.1.173:5295/api/picture/";
+  baseurl=API_BASE + 'picture/';
   constructor(private httpclient:HttpClient) { }
 
   addPicture(file: File)

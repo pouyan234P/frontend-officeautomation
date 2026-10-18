@@ -1,3 +1,4 @@
+import { API_BASE } from '../api.config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, model } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -8,7 +9,7 @@ import { Typeenum } from '../Model/enumletter/Typeenum';
   providedIn: 'root'
 })
 export class CorrespondenceService {
-  private baseurl = 'http://localhost:5295/api/Letter/';
+  private baseurl = API_BASE + 'Letter/';
   constructor(private httpclient: HttpClient) { }
   addLetter(model:any):Observable<LetterModel>
 {

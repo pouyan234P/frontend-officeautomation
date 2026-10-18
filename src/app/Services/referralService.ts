@@ -1,3 +1,4 @@
+import { API_BASE } from '../api.config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Typeenum } from '../Model/enumletter/Typeenum';
@@ -8,7 +9,7 @@ import {ReferralModel} from '../Model/referralModel';
   providedIn: 'root'
 })
 export class ReferralService {
-  private baseurl = 'http://localhost:5295/api/referral/'; // Replace with your actual server URL
+  private baseurl = API_BASE + 'referral/';
   constructor(private httpclient:HttpClient) { }
   createreferral(model:any,iddept: number)
   {

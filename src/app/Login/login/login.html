@@ -31,7 +31,7 @@
             <label class="form-label">Email</label>
             <div class="input-wrap">
               <span class="input-icon">👤</span>
-              <input name="Email" type="email" class="form-input" id="login-user" placeholder="Email" name="email" [(ngModel)]="Login.email"/>
+              <input type="email" class="form-input" id="login-user" placeholder="Email" name="email" autocomplete="username" [(ngModel)]="Login.email"/>
             </div>
             <div class="field-hint" id="login-user-hint"></div>
           
@@ -44,8 +44,8 @@
             </label>
             <div class="input-wrap">
               <span class="input-icon">🔐</span>
-              <input type="password" class="form-input" id="login-pass" placeholder="Your password" name="password" [(ngModel)]="Login.password"/>
-              <button class="eye-btn" onclick="toggleEye('login-pass',this)">👁</button>
+              <input type="password" class="form-input" #passInput id="login-pass" placeholder="Your password" name="password" autocomplete="current-password" [(ngModel)]="Login.password"/>
+              <button type="button" class="eye-btn" (click)="passInput.type = passInput.type === 'password' ? 'text' : 'password'">👁</button>
             </div>
             <div class="field-hint" id="login-pass-hint"></div>
           </div>
@@ -56,9 +56,13 @@
             <div class="check-label">Keep me signed in for 30 days</div>
           </div>
 
+          @if (errorMsg) {
+            <div class="login-error" role="alert">{{ errorMsg }}</div>
+          }
+
           <!-- Submit -->
-          <button type="submit" class="submit-btn" id="login-btn">
-            <span class="btn-text">Sign In</span>
+          <button type="submit" class="submit-btn" id="login-btn" [disabled]="busy">
+            <span class="btn-text">{{ busy ? 'Signing in…' : 'Sign In' }}</span>
             <span class="btn-spinner"></span>
           </button>
           </form>

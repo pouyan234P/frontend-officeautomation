@@ -1,3 +1,4 @@
+import { API_BASE } from '../api.config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -7,7 +8,7 @@ import { GetPosition } from '../Model/getPosition';
   providedIn: 'root'
 })
 export class PositionService {
-  baseurl="http://localhost:5295/api/position/"
+  baseurl=API_BASE + 'position/'
   constructor(private httpclient:HttpClient) { }
 
   getAll(): Observable<GetPosition[]>
