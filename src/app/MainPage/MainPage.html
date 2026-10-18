@@ -20,10 +20,10 @@
 
     <nav class="sb-nav">
       <div class="sb-sec">Module 1 — Org &amp; Auth</div>
+      <a class="sb-item" routerLink="/mainpage/users" routerLinkActive="active">
+        <span class="sb-ic">👤</span> Users
+      </a>
       @if (isAdmin) {
-        <a class="sb-item" routerLink="/mainpage/users" routerLinkActive="active">
-          <span class="sb-ic">👤</span> Users
-        </a>
         <a class="sb-item" routerLink="/mainpage/roles" routerLinkActive="active">
           <span class="sb-ic">🛡</span> Roles
         </a>
@@ -31,11 +31,9 @@
       <a class="sb-item" routerLink="/mainpage/orgchart" routerLinkActive="active">
         <span class="sb-ic">🏢</span> Org Chart (Departments)
       </a>
-      @if (isAdmin) {
-        <a class="sb-item" routerLink="/mainpage/positions" routerLinkActive="active">
-          <span class="sb-ic">🎖</span> Positions
-        </a>
-      }
+      <a class="sb-item" routerLink="/mainpage/positions" routerLinkActive="active">
+        <span class="sb-ic">🎖</span> Positions
+      </a>
 
       <div class="sb-sec">Module 2 — Correspondence</div>
       <a class="sb-item" routerLink="/mainpage/letters" routerLinkActive="active">

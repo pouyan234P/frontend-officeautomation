@@ -37,9 +37,13 @@ export class Userpage implements OnInit {
   roleSaving = false;
   roleError = '';
 
+  /** Only admins may create roles or put people in roles (the API enforces this too). */
+  isAdmin = false;
+
   ngOnInit(): void {
+    this.isAdmin = this.myauthservice.isAdmin();
     this.loaduser();
-    this.loadRoles();
+    if (this.isAdmin) this.loadRoles();
   }
 
   constructor(
@@ -159,7 +163,7 @@ export class Userpage implements OnInit {
         this.uploadStatus = '';
         this.closeModal();
         this.loaduser();
-        this.loadRoles();
+        if (this.isAdmin) this.loadRoles();
       },
       error: (error) => {
         this.saving = false;
@@ -191,6 +195,7 @@ export class Userpage implements OnInit {
   // ─── Role assignment ─────────────────────────────────────────────
 
   openRoles(user: UserModel): void {
+    if (!this.isAdmin) return;
     this.roleUser = user;
     this.roleError = '';
     const current = new Set((user.roles ?? []).map((r) => r.toLowerCase()));

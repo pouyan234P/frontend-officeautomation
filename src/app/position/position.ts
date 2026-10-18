@@ -10,6 +10,8 @@ import { GetuserModel } from '../Model/getuserModel';
 import { UserService } from '../Services/userService';
 import { UserModel } from '../Model/userModel';
 import { RouterLink } from '@angular/router';
+import { authservice } from '../Services/authservice';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-position',
@@ -23,6 +25,8 @@ export class Position implements OnInit {
    mypos: GetPosition[]=[];
    mydept: GetDepartmentModel[]=[];
    myuser: UserModel[]=[]
+   /** Only admins may create positions or assign someone to one (the API enforces this too). */
+   isAdmin = inject(authservice).isAdmin();
    isModalOpen = false;
   openModal()  { this.isModalOpen = true;  }
   closeModal() { this.isModalOpen = false; }

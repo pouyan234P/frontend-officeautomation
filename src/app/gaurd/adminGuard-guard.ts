@@ -3,8 +3,8 @@ import { Router, type CanActivateFn } from '@angular/router';
 import { authservice } from '../Services/authservice';
 
 /**
- * User, role and position management are Admin-only on the server; this keeps
- * non-admins from landing on pages that would only show permission errors.
+ * Creating roles, assigning roles and creating/assigning positions are Admin-only on
+ * the server; this keeps non-admins off pages that would only show permission errors.
  */
 export const adminGuard: CanActivateFn = () => {
   const auth = inject(authservice);

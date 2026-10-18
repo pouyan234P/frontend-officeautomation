@@ -32,12 +32,12 @@ export const routes: Routes = [
     canActivate: [loginGuardGuard],       // ← shell with sidebar
     children: [                 // ← these load inside <router-outlet>
       { path: '', redirectTo: 'users', pathMatch: 'full' },
-      // admin-only management pages (the API enforces this too)
-      { path: 'users',       component: Userpage, canActivate: [adminGuard] },
-      { path: 'users/edit/:id',     component: Edituser, canActivate: [adminGuard] },
+      { path: 'users',       component: Userpage },
+      { path: 'users/edit/:id',     component: Edituser },
+      // creating roles / assigning roles and positions is Admin-only (the API enforces this too)
       { path: 'roles',       component: Roles, canActivate: [adminGuard] },
       { path: 'orgchart',    component: Orgchart },
-      { path: 'positions',   component: Position, canActivate: [adminGuard] },
+      { path: 'positions',   component: Position },
       { path: 'positions/edit/:id', component: Editposition, canActivate: [adminGuard] },
       { path: 'letters',     component: Letter },
       { path: 'newletter',   component: Composeletter },

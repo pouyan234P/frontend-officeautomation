@@ -8,8 +8,10 @@
         <div class="pg-sub">Entity: User — Fields: UserID, Username, PasswordHash, PersonID, DigitalSignature, CurrentStatus</div>
       </div>
       <div class="head-actions">
-        <a class="btn btn-ghost" routerLink="/mainpage/roles" title="See all roles">🛡 Roles</a>
-        <a class="btn btn-ghost" routerLink="/mainpage/roles" [queryParams]="{ create: 1 }" title="Create a new role">+ New Role</a>
+        @if (isAdmin) {
+          <a class="btn btn-ghost" routerLink="/mainpage/roles" title="See all roles">🛡 Roles</a>
+          <a class="btn btn-ghost" routerLink="/mainpage/roles" [queryParams]="{ create: 1 }" title="Create a new role">+ New Role</a>
+        }
         <button class="btn btn-primary" (click)="openModal()">+ New User</button>
       </div>
     </div>
@@ -64,7 +66,8 @@
     <div class="form-hint">🔗 Links to the identity / person record table</div>
   </div>
 
-  <!-- Role -->
+  <!-- Role (only admins choose; everyone else's new users get the default Customer role) -->
+  @if (isAdmin) {
   <div class="form-grp">
     <label class="form-lbl">Role <span class="req">*</span></label>
     <select class="form-sel" name="role" [(ngModel)]="newuser.role">
@@ -77,6 +80,9 @@
     </select>
     <div class="form-hint">🛡 Need another role? <a routerLink="/mainpage/roles" [queryParams]="{ create: 1 }" (click)="closeModal()" class="inline-link">Create one</a></div>
   </div>
+  } @else {
+  <div class="form-hint" style="margin-bottom:14px;">🛡 New users get the <b>Customer</b> role. An admin can change it later.</div>
+  }
 
   <!-- Status -->
   <div class="form-grp">
@@ -265,7 +271,9 @@
               </td>
               <td class="flex gap-8">
                 <a class="btn btn-ghost btn-sm" [routerLink]="['/mainpage/users/edit', user.id]">Edit</a>
-                <button type="button" class="btn btn-ghost btn-sm" (click)="openRoles(user)">🛡 Role</button>
+                @if (isAdmin) {
+                  <button type="button" class="btn btn-ghost btn-sm" (click)="openRoles(user)">🛡 Role</button>
+                }
                 <a class="btn btn-ghost btn-sm" [routerLink]="['/mainpage/users/edit', user.id]">Signature</a>
               </td>
             </tr>
